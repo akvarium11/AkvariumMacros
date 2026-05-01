@@ -1,11 +1,11 @@
 # ✨ Akvarium Macros
 
 ## 📖 Table of Contents
-- [About the Project](#-about-the-project)
-- [Features](#-features)
-- [How to use](#-how-to-use)
-- [Would I get banned](#-ban)
-- [License](#-license)
+- [About the Project](https://github.com/akvarium11/AkvariumMacros#about-the-project)
+- [Features](https://github.com/akvarium11/AkvariumMacros#%EF%B8%8Ffeatures)
+- [How to use](https://github.com/akvarium11/AkvariumMacros#-%EF%B8%8Fhow-to-use)
+- [Would I get banned](https://github.com/akvarium11/AkvariumMacros#-would-i-get-banned)
+- [License](https://github.com/akvarium11/AkvariumMacros#-license)
 
 ## <a id="about-the-project"></a>📌About the Project
 
