@@ -33,7 +33,7 @@ Just launch the exe with Minecraft opened and press *INSERT*.
 ## <a id="ban"></a> ❓Would i get banned?
 
 <b>Quick answer - No </b>  
-AkvariumMacros has anti pattern detection algorithm which randomize delay between clicks every time it's active, although you can still get banned if your buns at hiding it.
+AkvariumMacros has anti pattern detection algorithm which randomizes delay between clicks every time macro activates, although you can still get banned if your buns at hiding it.
 
 ## <a id="license"></a> 📄License
 
