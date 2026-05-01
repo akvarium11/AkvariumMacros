@@ -158,7 +158,7 @@ namespace macros {
         INPUT ip = { 0 };
         ip.type = INPUT_MOUSE;
         if (globals::features::attributeSwap && globals::features::attributeSwapTargetSlot.key != 0) {
-            int baseSwap = globals::features::swapDelay;
+            int baseSwap = globals::features::attributeSwapDelay;
             int stdSwap = std::max(6, baseSwap / 3);
             int swapDelayCool = randomNormal(baseSwap, stdSwap);
             if (swapDelayCool < 5) swapDelayCool = 5;
@@ -180,7 +180,7 @@ namespace macros {
         }
     }
     void attributeSwap() {
-        static bool wasPressKeyPressed = false;   // removed the unused toggle var
+        static bool wasPressKeyPressed = false; 
         while (true) {
             if (globals::unattach) break;
 
@@ -194,8 +194,6 @@ namespace macros {
             else {
                 wasPressKeyPressed = false;
             }
-
-            // === FIX: prevent 100% CPU spin ===  (now with slight random to avoid patterns)
             std::this_thread::sleep_for(std::chrono::milliseconds(10));
         }
     }
@@ -208,6 +206,45 @@ namespace macros {
                     ExitProcess(0);
                 }
             }
+            std::this_thread::sleep_for(std::chrono::milliseconds(10));
+        }
+    }
+
+    // #                    #
+    // ## SPEAR SWAP PART  ##
+    void doSpearSwap() {
+        INPUT ip = { 0 };
+        ip.type = INPUT_MOUSE;
+        if (globals::features::spearSwap && globals::features::spearSwapTargetSlot.key != 0) {
+            ip.mi.dwFlags = MOUSEEVENTF_LEFTDOWN;
+            SendInput(1, &ip, sizeof(INPUT));
+            std::this_thread::sleep_for(std::chrono::milliseconds(randomNormal(6, 3)));
+            pressKey(globals::features::spearSwapTargetSlot.key);
+            int holdTime2 = randomNormal(10, 5);
+            if (holdTime2 < 10) holdTime2 = 10;
+            Sleep(holdTime2);
+            ip.mi.dwFlags = MOUSEEVENTF_LEFTUP;
+            SendInput(1, &ip, sizeof(INPUT));
+            std::this_thread::sleep_for(std::chrono::milliseconds(randomNormal(5, 3)));
+        }
+    }
+
+    void spearSwap() {
+        static bool wasPressKeyPressed = false;
+        while (true) {
+            if (globals::unattach) break;
+
+            if (globals::features::spearSwap && globals::features::spearSwapKey.key != 0) {
+                bool isPressKeyPressed = (GetAsyncKeyState(globals::features::spearSwapKey.key) & 0x8000) != 0;
+                if (isPressKeyPressed && !wasPressKeyPressed) {
+                    doSpearSwap();
+                }
+                wasPressKeyPressed = isPressKeyPressed;
+            }
+            else {
+                wasPressKeyPressed = false;
+            }
+
             std::this_thread::sleep_for(std::chrono::milliseconds(10));
         }
     }

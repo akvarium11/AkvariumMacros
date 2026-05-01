@@ -21,11 +21,16 @@ namespace globals
         // Swap between clicks
         inline bool swapBetweenClicks = false;
         inline keybind SwapBetweenTargetSlot("SwapBetweenTargetSlot");
+        inline int swapDelay = 30;
         // Just attribute swap
         inline bool attributeSwap = false;
         inline keybind attributeSwapTargetSlot("attributeSwapTargetSlot");
         inline keybind attributeSwapKey("attributeSwapKey");
-        inline int swapDelay = 30;
+        inline int attributeSwapDelay = 30;
+        // Just spear swap
+        inline bool spearSwap = false;
+        inline keybind spearSwapTargetSlot("spearSwapTargetSlot");
+        inline keybind spearSwapKey("spearSwapKey");
     }
 
     namespace misc {

@@ -427,7 +427,7 @@ namespace overlay {
 
                             ImGui::Separator();
 
-                            ImAdd::Text(ImVec4(1.0, 1.0, 1.0, 1.0), "Mace / Attribute swap");
+                            ImAdd::Text(ImVec4(1.0, 1.0, 1.0, 1.0), "Inventory slot swap");
 
                             ImGui::Dummy(ImVec2(0.0f, 6.0f));
 
@@ -441,9 +441,17 @@ namespace overlay {
                             Bind(&globals::features::SwapBeforeTargetSlot, ImVec2(40, 10));
                             */
 
-                            ImAdd::CheckBox("Swap between click", &globals::features::swapBetweenClicks);
+                            ImAdd::CheckBox("Swap between clicks", &globals::features::swapBetweenClicks);
                             ImGui::SameLine(ImGui::GetWindowWidth() / 2 - 60);
                             Bind(&globals::features::SwapBetweenTargetSlot, ImVec2(40, 10));
+
+                            ImGui::Dummy(ImVec2(0.0f, 6.0f));
+
+                            ImAdd::SliderInt("Swap delay (ms)", &globals::features::swapDelay, 0, 100);
+
+                            ImGui::Dummy(ImVec2(0.0f, 6.0f));
+
+                            ImGui::Separator();
 
                             ImGui::Dummy(ImVec2(0.0f, 6.0f));
 
@@ -457,7 +465,21 @@ namespace overlay {
 
                             ImGui::Dummy(ImVec2(0.0f, 6.0f));
 
-                            ImAdd::SliderInt("Swap delay (ms)", &globals::features::swapDelay, 0, 100);
+                            ImAdd::SliderInt("Attribute swap delay (ms)", &globals::features::attributeSwapDelay, 0, 100);
+
+                            ImGui::Dummy(ImVec2(0.0f, 6.0f));
+
+                            ImGui::Separator();
+
+                            ImGui::Dummy(ImVec2(0.0f, 6.0f));
+
+                            ImAdd::CheckBox("Spear swap", &globals::features::spearSwap);
+                            ImGui::SameLine(ImGui::GetWindowWidth() / 2 - 60);
+                            Bind(&globals::features::spearSwapKey, ImVec2(40, 10));
+
+                            ImAdd::Text(ImVec4(1.0, 1.0, 1.0, 1.0), "Spear slot");
+                            ImGui::SameLine(ImGui::GetWindowWidth() / 2 - 60);
+                            Bind(&globals::features::spearSwapTargetSlot, ImVec2(40, 10));
 
                             ImAdd::EndChild();
                             ImGui::EndTabItem();

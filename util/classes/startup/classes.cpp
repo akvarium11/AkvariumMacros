@@ -153,6 +153,11 @@ bool engine::startup() {
     attSwap.detach();
     logger.CustomLog(FOREGROUND_GREEN | FOREGROUND_INTENSITY, "SUCCESS", "Attribute swap thread launched");
 
+    logger.CustomLog(FOREGROUND_BLUE | FOREGROUND_GREEN | FOREGROUND_INTENSITY, "MACROS", "Launching spear swap thread...");
+    std::thread spear(macros::spearSwap);
+    spear.detach();
+    logger.CustomLog(FOREGROUND_GREEN | FOREGROUND_INTENSITY, "SUCCESS", "Spear swap thread launched");
+
     logger.CustomLog(FOREGROUND_BLUE | FOREGROUND_GREEN | FOREGROUND_INTENSITY, "MACROS", "Launching panic button thread...");
     std::thread panic(macros::panicButtonHandler);
     panic.detach();
