@@ -23,8 +23,9 @@
 | 1 | Double click                | Does additional click on left mouse button press. Allows for easier stuns.| 
 | 2 | Swap after click     | Swaps to desired inventory slot after double clicking. Does web stun / lava stun for you. | 
 | 3 | Swap between click           | Swaps to desired inventory slot in between clicks allowing for an easy stun slam.     | 
-| 4 | Streamproof            | Hides gui when screen sharing (you can still see it)    | 
-| 5 | Panic button            | Exits app on key press (even outside of Minecraft).   | 
+| 4 | Spear swap            | Does spear swap tech for you.    | 
+| 5 | Streamproof            | Hides gui when screen sharing (you can still see it)    | 
+| 6 | Panic button            | Exits app on key press (even outside of Minecraft).   | 
 
 ## <a id="how-to-use"></a> ▶️How to Use
 
