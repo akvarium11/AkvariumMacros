@@ -1,0 +1,590 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="drawing\imgui\addons\imgui_addons.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="drawing\imgui\backends\imgui_impl_dx11.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="drawing\imgui\backends\imgui_impl_win32.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="drawing\imgui\misc\freetype\imgui_freetype.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="drawing\imgui\imadd.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="drawing\imgui\imgui.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="drawing\imgui\imgui_demo.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="drawing\imgui\imgui_draw.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="drawing\imgui\imgui_tables.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="drawing\imgui\imgui_toggle.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="drawing\imgui\imgui_toggle_palette.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="drawing\imgui\imgui_toggle_presets.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="drawing\imgui\imgui_toggle_renderer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="drawing\imgui\imgui_widgets.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="drawing\imgui\TextEditor.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="drawing\libs\Microsoft DirectX SDK\Include\detours.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="drawing\overlay\keybind\keybind.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="drawing\overlay\overlay.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="features\DoubleClick.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="util\classes\startup\classes.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="entry.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="drawing\imgui\addons\imgui_addons.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="drawing\imgui\backends\imgui_impl_dx11.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="drawing\imgui\backends\imgui_impl_win32.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="drawing\imgui\misc\freetype\imgui_freetype.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="drawing\imgui\imconfig.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="drawing\imgui\imgui.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="drawing\imgui\imgui_internal.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="drawing\imgui\imgui_offset_rect.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="drawing\imgui\imgui_toggle.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="drawing\imgui\imgui_toggle_math.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="drawing\imgui\imgui_toggle_palette.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="drawing\imgui\imgui_toggle_presets.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="drawing\imgui\imgui_toggle_renderer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="drawing\imgui\imstb_rectpack.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="drawing\imgui\imstb_textedit.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="drawing\imgui\imstb_truetype.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="drawing\imgui\includes.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="drawing\imgui\TextEditor.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="drawing\libs\FreeType\include\freetype\config\ftconfig.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="drawing\libs\FreeType\include\freetype\config\ftheader.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="drawing\libs\FreeType\include\freetype\config\ftmodule.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="drawing\libs\FreeType\include\freetype\config\ftoption.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="drawing\libs\FreeType\include\freetype\config\ftstdlib.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="drawing\libs\FreeType\include\freetype\config\integer-types.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="drawing\libs\FreeType\include\freetype\config\mac-support.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="drawing\libs\FreeType\include\freetype\config\public-macros.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="drawing\libs\FreeType\include\freetype\freetype.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="drawing\libs\FreeType\include\freetype\ftadvanc.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="drawing\libs\FreeType\include\freetype\ftbbox.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="drawing\libs\FreeType\include\freetype\ftbdf.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="drawing\libs\FreeType\include\freetype\ftbitmap.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="drawing\libs\FreeType\include\freetype\ftbzip2.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="drawing\libs\FreeType\include\freetype\ftcache.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="drawing\libs\FreeType\include\freetype\ftchapters.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="drawing\libs\FreeType\include\freetype\ftcid.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="drawing\libs\FreeType\include\freetype\ftcolor.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="drawing\libs\FreeType\include\freetype\ftdriver.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="drawing\libs\FreeType\include\freetype\fterrdef.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="drawing\libs\FreeType\include\freetype\fterrors.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="drawing\libs\FreeType\include\freetype\ftfntfmt.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="drawing\libs\FreeType\include\freetype\ftgasp.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="drawing\libs\FreeType\include\freetype\ftglyph.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="drawing\libs\FreeType\include\freetype\ftgxval.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="drawing\libs\FreeType\include\freetype\ftgzip.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="drawing\libs\FreeType\include\freetype\ftimage.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="drawing\libs\FreeType\include\freetype\ftincrem.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="drawing\libs\FreeType\include\freetype\ftlcdfil.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="drawing\libs\FreeType\include\freetype\ftlist.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="drawing\libs\FreeType\include\freetype\ftlogging.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="drawing\libs\FreeType\include\freetype\ftlzw.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="drawing\libs\FreeType\include\freetype\ftmac.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="drawing\libs\FreeType\include\freetype\ftmm.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="drawing\libs\FreeType\include\freetype\ftmodapi.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="drawing\libs\FreeType\include\freetype\ftmoderr.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="drawing\libs\FreeType\include\freetype\ftotval.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="drawing\libs\FreeType\include\freetype\ftoutln.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="drawing\libs\FreeType\include\freetype\ftparams.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="drawing\libs\FreeType\include\freetype\ftpfr.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="drawing\libs\FreeType\include\freetype\ftrender.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="drawing\libs\FreeType\include\freetype\ftsizes.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="drawing\libs\FreeType\include\freetype\ftsnames.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="drawing\libs\FreeType\include\freetype\ftstroke.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="drawing\libs\FreeType\include\freetype\ftsynth.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="drawing\libs\FreeType\include\freetype\ftsystem.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="drawing\libs\FreeType\include\freetype\fttrigon.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="drawing\libs\FreeType\include\freetype\fttypes.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="drawing\libs\FreeType\include\freetype\ftwinfnt.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="drawing\libs\FreeType\include\freetype\otsvg.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="drawing\libs\FreeType\include\freetype\t1tables.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="drawing\libs\FreeType\include\freetype\ttnameid.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="drawing\libs\FreeType\include\freetype\tttables.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="drawing\libs\FreeType\include\freetype\tttags.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="drawing\libs\FreeType\include\ft2build.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="drawing\libs\Microsoft DirectX SDK\Include\audiodefs.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="drawing\libs\Microsoft DirectX SDK\Include\comdecl.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="drawing\libs\Microsoft DirectX SDK\Include\D2D1.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="drawing\libs\Microsoft DirectX SDK\Include\D2D1Helper.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="drawing\libs\Microsoft DirectX SDK\Include\D2DBaseTypes.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="drawing\libs\Microsoft DirectX SDK\Include\D2Derr.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="drawing\libs\Microsoft DirectX SDK\Include\d3d9.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="drawing\libs\Microsoft DirectX SDK\Include\d3d9caps.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="drawing\libs\Microsoft DirectX SDK\Include\d3d9types.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="drawing\libs\Microsoft DirectX SDK\Include\D3D10.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="drawing\libs\Microsoft DirectX SDK\Include\D3D10_1.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="drawing\libs\Microsoft DirectX SDK\Include\D3D10_1shader.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="drawing\libs\Microsoft DirectX SDK\Include\D3D10effect.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="drawing\libs\Microsoft DirectX SDK\Include\d3d10misc.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="drawing\libs\Microsoft DirectX SDK\Include\d3d10sdklayers.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="drawing\libs\Microsoft DirectX SDK\Include\D3D10shader.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="drawing\libs\Microsoft DirectX SDK\Include\D3D11.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="drawing\libs\Microsoft DirectX SDK\Include\D3D11SDKLayers.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="drawing\libs\Microsoft DirectX SDK\Include\D3D11Shader.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="drawing\libs\Microsoft DirectX SDK\Include\D3Dcommon.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="drawing\libs\Microsoft DirectX SDK\Include\D3Dcompiler.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="drawing\libs\Microsoft DirectX SDK\Include\D3DCSX.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="drawing\libs\Microsoft DirectX SDK\Include\d3dx9.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="drawing\libs\Microsoft DirectX SDK\Include\d3dx9anim.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="drawing\libs\Microsoft DirectX SDK\Include\d3dx9core.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="drawing\libs\Microsoft DirectX SDK\Include\d3dx9effect.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="drawing\libs\Microsoft DirectX SDK\Include\d3dx9math.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="drawing\libs\Microsoft DirectX SDK\Include\d3dx9mesh.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="drawing\libs\Microsoft DirectX SDK\Include\d3dx9shader.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="drawing\libs\Microsoft DirectX SDK\Include\d3dx9shape.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="drawing\libs\Microsoft DirectX SDK\Include\d3dx9tex.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="drawing\libs\Microsoft DirectX SDK\Include\d3dx9xof.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="drawing\libs\Microsoft DirectX SDK\Include\D3DX10.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="drawing\libs\Microsoft DirectX SDK\Include\d3dx10async.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="drawing\libs\Microsoft DirectX SDK\Include\D3DX10core.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="drawing\libs\Microsoft DirectX SDK\Include\D3DX10math.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="drawing\libs\Microsoft DirectX SDK\Include\D3DX10mesh.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="drawing\libs\Microsoft DirectX SDK\Include\D3DX10tex.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="drawing\libs\Microsoft DirectX SDK\Include\D3DX11.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="drawing\libs\Microsoft DirectX SDK\Include\D3DX11async.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="drawing\libs\Microsoft DirectX SDK\Include\D3DX11core.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="drawing\libs\Microsoft DirectX SDK\Include\D3DX11tex.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="drawing\libs\Microsoft DirectX SDK\Include\Dcommon.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="drawing\libs\Microsoft DirectX SDK\Include\detours.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="drawing\libs\Microsoft DirectX SDK\Include\dinput.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="drawing\libs\Microsoft DirectX SDK\Include\dinputd.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="drawing\libs\Microsoft DirectX SDK\Include\dsconf.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="drawing\libs\Microsoft DirectX SDK\Include\dsetup.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="drawing\libs\Microsoft DirectX SDK\Include\dsound.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="drawing\libs\Microsoft DirectX SDK\Include\DWrite.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="drawing\libs\Microsoft DirectX SDK\Include\dxdiag.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="drawing\libs\Microsoft DirectX SDK\Include\DxErr.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="drawing\libs\Microsoft DirectX SDK\Include\dxfile.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="drawing\libs\Microsoft DirectX SDK\Include\DXGI.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="drawing\libs\Microsoft DirectX SDK\Include\DXGIFormat.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="drawing\libs\Microsoft DirectX SDK\Include\DXGIType.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="drawing\libs\Microsoft DirectX SDK\Include\dxsdkver.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="drawing\libs\Microsoft DirectX SDK\Include\gameux.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="drawing\libs\Microsoft DirectX SDK\Include\PIXPlugin.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="drawing\libs\Microsoft DirectX SDK\Include\rmxfguid.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="drawing\libs\Microsoft DirectX SDK\Include\rmxftmpl.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="drawing\libs\Microsoft DirectX SDK\Include\rpcsal.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="drawing\libs\Microsoft DirectX SDK\Include\X3DAudio.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="drawing\libs\Microsoft DirectX SDK\Include\xact3.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="drawing\libs\Microsoft DirectX SDK\Include\xact3d3.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="drawing\libs\Microsoft DirectX SDK\Include\xact3wb.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="drawing\libs\Microsoft DirectX SDK\Include\XAPO.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="drawing\libs\Microsoft DirectX SDK\Include\XAPOBase.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="drawing\libs\Microsoft DirectX SDK\Include\XAPOFX.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="drawing\libs\Microsoft DirectX SDK\Include\XAudio2.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="drawing\libs\Microsoft DirectX SDK\Include\XAudio2fx.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="drawing\libs\Microsoft DirectX SDK\Include\XDSP.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="drawing\libs\Microsoft DirectX SDK\Include\XInput.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="drawing\libs\Microsoft DirectX SDK\Include\xma2defs.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="drawing\libs\Microsoft DirectX SDK\Include\xnamath.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="drawing\overlay\keybind\keybind.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="drawing\overlay\overlay.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="features\macros.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="util\classes\classes.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="util\notification\notification.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="util\protection\hashes\hash.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="util\protection\keyauth\auth.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="util\protection\keyauth\json.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="util\protection\keyauth\skStr.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="util\protection\keyauth\utils.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="util\protection\vmp\vmprotect.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="util\protection\hider.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="util\globals.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="drawing\libs\Microsoft DirectX SDK\Include\D3DX_DXGIFormatConvert.inl">
+      <Filter>Header Files</Filter>
+    </None>
+    <None Include="drawing\libs\Microsoft DirectX SDK\Include\d3dx9math.inl">
+      <Filter>Header Files</Filter>
+    </None>
+    <None Include="drawing\libs\Microsoft DirectX SDK\Include\D3DX10math.inl">
+      <Filter>Header Files</Filter>
+    </None>
+    <None Include="drawing\libs\Microsoft DirectX SDK\Include\xnamathconvert.inl">
+      <Filter>Header Files</Filter>
+    </None>
+    <None Include="drawing\libs\Microsoft DirectX SDK\Include\xnamathmatrix.inl">
+      <Filter>Header Files</Filter>
+    </None>
+    <None Include="drawing\libs\Microsoft DirectX SDK\Include\xnamathmisc.inl">
+      <Filter>Header Files</Filter>
+    </None>
+    <None Include="drawing\libs\Microsoft DirectX SDK\Include\xnamathvector.inl">
+      <Filter>Header Files</Filter>
+    </None>
+  </ItemGroup>
+</Project>
