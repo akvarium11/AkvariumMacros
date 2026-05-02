@@ -16,11 +16,12 @@
 
 ## <a id="features"></a>⌨️Features 
 
-![image](https://github.com/akvarium11/AkvariumMacros/blob/master/image1.png)
+![image](https://files.catbox.moe/3fwj1b.jpg)
 
 | # | Features               | Purpose       | 
 |---|------------------------------------|----------------|
 | 1 | Double click                | Does additional click on left mouse button press. Allows for easier stuns.| 
+| 1.1 | Double click indicator                | A little indicator under the crosshair that shows whether double click is enabled.| 
 | 2 | Swap after click     | Swaps to desired inventory slot after double clicking. Does web stun / lava stun for you. | 
 | 3 | Swap between click           | Swaps to desired inventory slot in between clicks allowing for an easy stun slam.     | 
 | 4 | Spear swap            | Does spear swap tech for you.    | 
