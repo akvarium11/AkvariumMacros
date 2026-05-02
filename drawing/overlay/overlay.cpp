@@ -383,6 +383,23 @@ namespace overlay {
                 //if (GetAsyncKeyState(VK_F1) & 1) overlay::visible = !overlay::visible;
                 if (GetAsyncKeyState(VK_INSERT) & 1) overlay::visible = !overlay::visible;
                 //if (GetAsyncKeyState(VK_HOME) & 1) overlay::visible = !overlay::visible;
+
+                // === AdClick Indicator — visible regardless of menu state ===
+                if (globals::features::AdIndicator) {
+                    bool enabled = globals::features::ADclick;
+                    const char* text = enabled ? "AdClick: ON" : "AdClick: OFF";
+                    ImVec4 color = enabled ? globals::features::AdIndicatorColor : ImVec4(0.9f, 0.2f, 0.2f, 1.0f);
+                    ImVec2 screen = ImGui::GetIO().DisplaySize;
+                    ImVec2 textSize = ImGui::CalcTextSize(text);
+                    ImVec2 pos(
+                        (screen.x - textSize.x) / 2.0f,
+                        screen.y / 2.0f + 45.0f
+                    );
+                    ImU32 col = ImGui::ColorConvertFloat4ToU32(color);
+                    ImGui::GetForegroundDrawList()->AddText(ImVec2(pos.x + 1.5f, pos.y + 1.5f), IM_COL32(0, 0, 0, 220), text);
+                    ImGui::GetForegroundDrawList()->AddText(pos, col, text);
+                }
+
                 if (overlay::visible) {
                     style.WindowShadowSize = 0;
                     style.Colors[ImGuiCol_WindowShadow] = style.Colors[ImGuiCol_SliderGrab];
@@ -404,6 +421,15 @@ namespace overlay {
                             ImGui::Dummy(ImVec2(0.0f, 6.0f));
 
                             ImAdd::CheckBox("Auto Double Clicker", &globals::features::ADclick);
+
+                            ImGui::Indent();
+
+                            ImAdd::CheckBox("Auto Dclick Indicator", &globals::features::AdIndicator);
+                            ImAdd::Text({ 1.0, 1.0, 1.0, 1.0 }, "Indicator color");
+                            ImGui::SameLine(ImGui::GetWindowWidth() / 2 - 60);
+                            ImAdd::ColorEdit4("", (float*)&globals::features::AdIndicatorColor);
+
+                            ImGui::Unindent();
 
                             //ImGui::Dummy(ImVec2(0.0f, 6.0f));
 

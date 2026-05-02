@@ -6,12 +6,16 @@
 namespace globals
 {
     namespace features {
+        // AD
         inline bool ADclick = false;
         inline int ADclickDelay = 30;
         inline bool ADclickOnKey = false;
         inline keybind ADclickBind("ADclickPressKey");
         inline bool ADKeyToggle = false;
         inline keybind ADkeyToggleBind("ADkeyToggleBind");
+        // Indicator
+        inline bool AdIndicator = false;
+        inline ImVec4 AdIndicatorColor = { 1.0, 1.0, 1.0, 1.0 };
         // Swap after click
         inline bool swapOnClick = false;
         inline keybind SwapOnTargetSlot("SwapOnTargetSlot");
