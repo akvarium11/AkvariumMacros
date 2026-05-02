@@ -16,7 +16,7 @@
 
 ## <a id="features"></a>⌨️Features 
 
-![image](https://files.catbox.moe/3fwj1b.jpg)
+![image](https://files.catbox.moe/fim74l.png)
 
 | # | Features               | Purpose       | 
 |---|------------------------------------|----------------|
