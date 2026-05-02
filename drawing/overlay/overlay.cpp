@@ -3,6 +3,7 @@
 #include "../imgui/backends/imgui_impl_win32.h"
 #include "../imgui/backends/imgui_impl_dx11.h"
 #include "../imgui/addons/imgui_addons.h"
+#include "../../util/config/configsystem.h"
 #include "../../util/globals.h"
 #include "../../util/notification/notification.h"
 #include <Windows.h>
@@ -85,6 +86,8 @@ static IDXGISwapChain* g_pSwapChain = nullptr;
 static UINT g_ResizeWidth = 0, g_ResizeHeight = 0;
 static ID3D11RenderTargetView* g_mainRenderTargetView = nullptr;
 namespace overlay {
+    static ConfigSystem g_config_system;
+
     void render_watermark() {
         if (!globals::misc::watermark) return;
         static ImVec2 watermark_pos = ImVec2(10, 10);
@@ -646,6 +649,13 @@ namespace overlay {
                             ImAdd::EndChild();
                             ImGui::EndTabItem();
                         }
+                        if (ImGui::BeginTabItem("Config")) {
+                            g_config_system.render_config_ui(
+                                ImGui::GetWindowWidth() - 30,
+                                480
+                            );
+                            ImGui::EndTabItem();
+                        }
                         ImGui::EndTabBar();
                     }
                     ImGui::End();
@@ -656,7 +666,8 @@ namespace overlay {
                 overlay::visible = false;
             }
             if (overlay::visible) {
-                SetWindowLong(hwnd, GWL_EXSTYLE, WS_EX_TOPMOST | WS_EX_LAYERED | WS_EX_TOOLWINDOW | WS_EX_NOACTIVATE);
+                SetWindowLong(hwnd, GWL_EXSTYLE, WS_EX_TOPMOST | WS_EX_LAYERED | WS_EX_TOOLWINDOW);
+                SetForegroundWindow(hwnd);
             }
             else {
                 SetWindowLong(hwnd, GWL_EXSTYLE, WS_EX_TOPMOST | WS_EX_TRANSPARENT | WS_EX_LAYERED | WS_EX_TOOLWINDOW | WS_EX_NOACTIVATE);

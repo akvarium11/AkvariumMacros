@@ -78,6 +78,9 @@
     <ClCompile Include="entry.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="util\config\configsystem.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="drawing\imgui\addons\imgui_addons.h">
@@ -561,6 +564,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="util\globals.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="util\config\configsystem.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="util\json\json.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

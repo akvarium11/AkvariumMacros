@@ -156,6 +156,7 @@
     <ClCompile Include="entry.cpp" />
     <ClCompile Include="features\DoubleClick.cpp" />
     <ClCompile Include="util\classes\startup\classes.cpp" />
+    <ClCompile Include="util\config\configsystem.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="drawing\imgui\addons\imgui_addons.h" />
@@ -310,7 +311,9 @@
     <ClInclude Include="drawing\overlay\overlay.h" />
     <ClInclude Include="features\macros.h" />
     <ClInclude Include="util\classes\classes.h" />
+    <ClInclude Include="util\config\configsystem.h" />
     <ClInclude Include="util\globals.h" />
+    <ClInclude Include="util\json\json.h" />
     <ClInclude Include="util\notification\notification.h" />
     <ClInclude Include="util\protection\hashes\hash.h" />
     <ClInclude Include="util\protection\hider.h" />
