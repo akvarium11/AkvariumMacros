@@ -13,9 +13,15 @@ namespace globals
         inline keybind ADclickBind("ADclickPressKey");
         inline bool ADKeyToggle = false;
         inline keybind ADkeyToggleBind("ADkeyToggleBind");
-        // Indicator
+        // Indicators
         inline bool AdIndicator = false;
         inline ImVec4 AdIndicatorColor = { 1.0, 1.0, 1.0, 1.0 };
+
+        inline bool attributeSwapIndicator = false;
+        inline ImVec4 attributeSwapIndicatorColor = { 1.0, 1.0, 1.0, 1.0 };
+
+        inline bool spearSwapIndicator = false;
+        inline ImVec4 spearSwapIndicatorColor = { 1.0, 1.0, 1.0, 1.0 };
         // Swap after click
         inline bool swapOnClick = false;
         inline keybind SwapOnTargetSlot("SwapOnTargetSlot");

@@ -130,12 +130,12 @@ namespace macros {
                         Sleep(sd);
                         pressKey(globals::features::SwapOnTargetSlot.key);
                     }
-                    // Humanized cycle delay with variance and occasional longer pauses
+
                     int baseCycle = globals::features::ADclickDelay;
                     int cycleStd = std::max(10, baseCycle / 3 + 5);
                     int cycleDelay = randomNormal(baseCycle + 8, cycleStd);
                     if (cycleDelay < 1) cycleDelay = 1;
-                    // Every ~20-30 clicks, 12% chance of human "adjustment pause" (200-400ms)
+
                     autoClickCounter++;
                     if (autoClickCounter % 23 == 0 && randomInt(0, 100) < 12) {
                         cycleDelay += randomNormal(280, 90);
@@ -180,7 +180,7 @@ namespace macros {
         }
     }
     void attributeSwap() {
-        static bool wasPressKeyPressed = false; 
+        static bool wasPressKeyPressed = false;
         while (true) {
             if (globals::unattach) break;
 

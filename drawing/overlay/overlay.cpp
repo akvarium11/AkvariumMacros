@@ -384,20 +384,99 @@ namespace overlay {
                 if (GetAsyncKeyState(VK_INSERT) & 1) overlay::visible = !overlay::visible;
                 //if (GetAsyncKeyState(VK_HOME) & 1) overlay::visible = !overlay::visible;
 
-                // === AdClick Indicator — visible regardless of menu state ===
-                if (globals::features::AdIndicator) {
-                    bool enabled = globals::features::ADclick;
-                    const char* text = enabled ? "AdClick: ON" : "AdClick: OFF";
-                    ImVec4 color = enabled ? globals::features::AdIndicatorColor : ImVec4(0.9f, 0.2f, 0.2f, 1.0f);
+                // === Swap/Click Indicators - stacked vertically, centered ===
+                {
+                    // Per-indicator flash timers (persist across frames via static)
+                    static float attributeSwapFlashTimer = 0.0f;
+                    static float spearSwapFlashTimer = 0.0f;
+                    // Manual edge detection - avoids & 1 bit being consumed by other threads
+                    static bool attributeKeyWasDown = false;
+                    static bool spearKeyWasDown = false;
+
+                    float dt = ImGui::GetIO().DeltaTime;
+
+                    // Detect attribute swap key press -> start 1s flash
+                    if (globals::features::attributeSwapIndicator &&
+                        globals::features::attributeSwapKey.key != 0)
+                    {
+                        bool isDown = (GetAsyncKeyState(globals::features::attributeSwapKey.key) & 0x8000) != 0;
+                        if (isDown && !attributeKeyWasDown)
+                            attributeSwapFlashTimer = 0.5f;
+                        attributeKeyWasDown = isDown;
+                    }
+                    if (attributeSwapFlashTimer > 0.0f)
+                        attributeSwapFlashTimer -= dt;
+
+                    // Detect spear swap key press -> start 1s flash
+                    if (globals::features::spearSwapIndicator &&
+                        globals::features::spearSwapKey.key != 0)
+                    {
+                        bool isDown = (GetAsyncKeyState(globals::features::spearSwapKey.key) & 0x8000) != 0;
+                        if (isDown && !spearKeyWasDown)
+                            spearSwapFlashTimer = 0.5f;
+                        spearKeyWasDown = isDown;
+                    }
+                    if (spearSwapFlashTimer > 0.0f)
+                        spearSwapFlashTimer -= dt;
+
                     ImVec2 screen = ImGui::GetIO().DisplaySize;
-                    ImVec2 textSize = ImGui::CalcTextSize(text);
-                    ImVec2 pos(
-                        (screen.x - textSize.x) / 2.0f,
-                        screen.y / 2.0f + 45.0f
-                    );
-                    ImU32 col = ImGui::ColorConvertFloat4ToU32(color);
-                    ImGui::GetForegroundDrawList()->AddText(ImVec2(pos.x + 1.5f, pos.y + 1.5f), IM_COL32(0, 0, 0, 220), text);
-                    ImGui::GetForegroundDrawList()->AddText(pos, col, text);
+                    float baseY = screen.y / 2.0f + 45.0f;
+                    float lineH = ImGui::GetTextLineHeight() + 4.0f;
+                    int   slot = 0; // vertical slot index
+
+                    // --- AdClick Indicator ---
+                    if (globals::features::AdIndicator) {
+                        bool enabled = globals::features::ADclick;
+                        const char* text = enabled ? "AdClick: ON" : "AdClick: OFF";
+                        ImVec4 color = enabled
+                            ? globals::features::AdIndicatorColor
+                            : ImVec4(1.0f, 1.0f, 1.0f, 1.0f);
+                        ImVec2 textSize = ImGui::CalcTextSize(text);
+                        ImVec2 pos((screen.x - textSize.x) / 2.0f, baseY + slot * lineH);
+                        ImU32  col = ImGui::ColorConvertFloat4ToU32(color);
+                        ImGui::GetForegroundDrawList()->AddText(
+                            ImVec2(pos.x + 1.5f, pos.y + 1.5f), IM_COL32(0, 0, 0, 220), text);
+                        ImGui::GetForegroundDrawList()->AddText(pos, col, text);
+                        slot++;
+                    }
+
+                    // --- Attribute Swap Indicator ---
+                    if (globals::features::attributeSwapIndicator) {
+                        std::string keyName = globals::features::attributeSwapKey.key != 0
+                            ? globals::features::attributeSwapKey.get_key_name()
+                            : "None";
+                        std::string text = "Attribute: " + keyName;
+                        // Use user color for 1s after key press; white otherwise
+                        ImVec4 color = (attributeSwapFlashTimer > 0.0f)
+                            ? globals::features::attributeSwapIndicatorColor
+                            : ImVec4(1.0f, 1.0f, 1.0f, 1.0f);
+                        ImVec2 textSize = ImGui::CalcTextSize(text.c_str());
+                        ImVec2 pos((screen.x - textSize.x) / 2.0f, baseY + slot * lineH);
+                        ImU32  col = ImGui::ColorConvertFloat4ToU32(color);
+                        ImGui::GetForegroundDrawList()->AddText(
+                            ImVec2(pos.x + 1.5f, pos.y + 1.5f), IM_COL32(0, 0, 0, 220), text.c_str());
+                        ImGui::GetForegroundDrawList()->AddText(pos, col, text.c_str());
+                        slot++;
+                    }
+
+                    // --- Spear Swap Indicator ---
+                    if (globals::features::spearSwapIndicator) {
+                        std::string keyName = globals::features::spearSwapKey.key != 0
+                            ? globals::features::spearSwapKey.get_key_name()
+                            : "None";
+                        std::string text = "Spear: " + keyName;
+                        // Use user color for 1s after key press; white otherwise
+                        ImVec4 color = (spearSwapFlashTimer > 0.0f)
+                            ? globals::features::spearSwapIndicatorColor
+                            : ImVec4(1.0f, 1.0f, 1.0f, 1.0f);
+                        ImVec2 textSize = ImGui::CalcTextSize(text.c_str());
+                        ImVec2 pos((screen.x - textSize.x) / 2.0f, baseY + slot * lineH);
+                        ImU32  col = ImGui::ColorConvertFloat4ToU32(color);
+                        ImGui::GetForegroundDrawList()->AddText(
+                            ImVec2(pos.x + 1.5f, pos.y + 1.5f), IM_COL32(0, 0, 0, 220), text.c_str());
+                        ImGui::GetForegroundDrawList()->AddText(pos, col, text.c_str());
+                        slot++;
+                    }
                 }
 
                 if (overlay::visible) {
@@ -422,28 +501,15 @@ namespace overlay {
 
                             ImAdd::CheckBox("Auto Double Clicker", &globals::features::ADclick);
 
-                            ImGui::Indent();
-
-                            ImAdd::CheckBox("Auto Dclick Indicator", &globals::features::AdIndicator);
-                            ImAdd::Text({ 1.0, 1.0, 1.0, 1.0 }, "Indicator color");
-                            ImGui::SameLine(ImGui::GetWindowWidth() / 2 - 60);
-                            ImAdd::ColorEdit4("", (float*)&globals::features::AdIndicatorColor);
-
-                            ImGui::Unindent();
-
                             //ImGui::Dummy(ImVec2(0.0f, 6.0f));
 
                             ImAdd::CheckBox("Toggle Key", &globals::features::ADKeyToggle);
                             ImGui::SameLine(ImGui::GetWindowWidth() / 2 - 60);
                             Bind(&globals::features::ADkeyToggleBind, ImVec2(40, 10));
 
-                            //ImGui::Dummy(ImVec2(0.0f, 6.0f));
-
-                            /*
                             ImAdd::CheckBox("Double click on key", &globals::features::ADclickOnKey);
                             ImGui::SameLine(ImGui::GetWindowWidth() / 2 - 60);
                             Bind(&globals::features::ADclickBind, ImVec2(40, 10));
-                            */
 
                             ImGui::Dummy(ImVec2(0.0f, 6.0f));
 
@@ -457,15 +523,14 @@ namespace overlay {
 
                             ImGui::Dummy(ImVec2(0.0f, 6.0f));
 
-                            ImAdd::CheckBox("Swap after click", &globals::features::swapOnClick);
+                            ImAdd::CheckBox("Swap after clicks", &globals::features::swapOnClick);
                             ImGui::SameLine(ImGui::GetWindowWidth() / 2 - 60);
                             Bind(&globals::features::SwapOnTargetSlot, ImVec2(40, 10));
 
-                            /*
-                            ImAdd::CheckBox("Swap before DC", &globals::features::swapBeforeClick);
+                            /* I figured out its kinda impossible to make
+                            ImAdd::CheckBox("Swap before clicks", &globals::features::swapBeforeClick);
                             ImGui::SameLine(ImGui::GetWindowWidth() / 2 - 60);
-                            Bind(&globals::features::SwapBeforeTargetSlot, ImVec2(40, 10));
-                            */
+                            Bind(&globals::features::SwapBeforeTargetSlot, ImVec2(40, 10)); */
 
                             ImAdd::CheckBox("Swap between clicks", &globals::features::swapBetweenClicks);
                             ImGui::SameLine(ImGui::GetWindowWidth() / 2 - 60);
@@ -506,6 +571,42 @@ namespace overlay {
                             ImAdd::Text(ImVec4(1.0, 1.0, 1.0, 1.0), "Spear slot");
                             ImGui::SameLine(ImGui::GetWindowWidth() / 2 - 60);
                             Bind(&globals::features::spearSwapTargetSlot, ImVec2(40, 10));
+
+                            ImAdd::EndChild();
+                            ImGui::EndTabItem();
+                        }
+                        if (ImGui::BeginTabItem("Indicators")) {
+                            ImAdd::BeginChild("Indicators", ImVec2(ImGui::GetWindowWidth() - 30, 480));
+                            draw_shadowed_text("Indicators");
+
+                            ImGui::Dummy(ImVec2(0.0f, 6.0f));
+
+                            ImAdd::CheckBox("Auto Dclick Indicator", &globals::features::AdIndicator);
+                            ImAdd::Text({ 1.0, 1.0, 1.0, 1.0 }, "Indicator color");
+                            ImGui::SameLine(ImGui::GetWindowWidth() / 2 - 20);
+                            ImAdd::ColorEdit4("##AdIndicatorColor", (float*)&globals::features::AdIndicatorColor);
+
+                            ImGui::Dummy(ImVec2(0.0f, 6.0f));
+
+                            ImGui::Separator();
+
+                            ImGui::Dummy(ImVec2(0.0f, 6.0f));
+
+                            ImAdd::CheckBox("Attribute swap indicator", &globals::features::attributeSwapIndicator);
+                            ImAdd::Text({ 1.0, 1.0, 1.0, 1.0 }, "Indicator color");
+                            ImGui::SameLine(ImGui::GetWindowWidth() / 2 - 20);
+                            ImAdd::ColorEdit4("##AttrSwapIndicatorColor", (float*)&globals::features::attributeSwapIndicatorColor);
+
+                            ImGui::Dummy(ImVec2(0.0f, 6.0f));
+
+                            ImGui::Separator();
+
+                            ImGui::Dummy(ImVec2(0.0f, 6.0f));
+
+                            ImAdd::CheckBox("Spear swap indicator", &globals::features::spearSwapIndicator);
+                            ImAdd::Text({ 1.0, 1.0, 1.0, 1.0 }, "Indicator color");
+                            ImGui::SameLine(ImGui::GetWindowWidth() / 2 - 20);
+                            ImAdd::ColorEdit4("##SpearSwapIndicatorColor", (float*)&globals::features::spearSwapIndicatorColor);
 
                             ImAdd::EndChild();
                             ImGui::EndTabItem();
