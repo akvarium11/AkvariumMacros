@@ -127,6 +127,7 @@ bool ConfigSystem::save_config(const std::string& name) {
         file.close();
         refresh_config_list();
         current_config_name = name;
+        save_last_config_name(name);
         std::cout << "[CONFIG] Successfully saved config: " << name << "\n";
         return true;
     }
@@ -239,6 +240,7 @@ bool ConfigSystem::load_config(const std::string& name) {
             }
 
             current_config_name = name;
+            save_last_config_name(name);
             std::cout << "[CONFIG] Successfully loaded config: " << name << "\n";
             return true;
         }
@@ -385,4 +387,25 @@ void ConfigSystem::render_config_ui(float width, float height) {
 
 const std::string& ConfigSystem::get_current_config() const {
     return current_config_name;
+}
+
+void ConfigSystem::save_last_config_name(const std::string& name) {
+    std::string filepath = config_directory + "\\last.cfg";
+    std::ofstream file(filepath);
+    if (file.is_open()) {
+        file << name;
+        file.close();
+    }
+}
+
+std::string ConfigSystem::load_last_config_name() {
+    std::string filepath = config_directory + "\\last.cfg";
+    std::ifstream file(filepath);
+    if (file.is_open()) {
+        std::string name;
+        std::getline(file, name);
+        file.close();
+        return name;
+    }
+    return "";
 }

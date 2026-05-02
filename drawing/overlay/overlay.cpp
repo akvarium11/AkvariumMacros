@@ -1,4 +1,4 @@
-#include "overlay.h"
+﻿#include "overlay.h"
 #include "../imgui/imgui.h"
 #include "../imgui/backends/imgui_impl_win32.h"
 #include "../imgui/backends/imgui_impl_dx11.h"
@@ -15,6 +15,7 @@
 #include <dwmapi.h>
 #include <thread>
 #include <cstring>
+#include <iostream>
 // Forward declarations for helper functions
 bool CreateDeviceD3D(HWND hWnd);
 void CleanupDeviceD3D();
@@ -87,6 +88,16 @@ static UINT g_ResizeWidth = 0, g_ResizeHeight = 0;
 static ID3D11RenderTargetView* g_mainRenderTargetView = nullptr;
 namespace overlay {
     static ConfigSystem g_config_system;
+
+    // Автозагрузка последнего конфига при старте
+    static bool config_loaded = [&]() {
+        std::string last = g_config_system.load_last_config_name();
+        if (!last.empty()) {
+            g_config_system.load_config(last);
+            std::cout << "[CONFIG] Auto-loaded last config: " << last << "\n";
+        }
+        return true;
+        }();
 
     void render_watermark() {
         if (!globals::misc::watermark) return;

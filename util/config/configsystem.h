@@ -29,4 +29,7 @@ public:
     bool delete_config(const std::string& name);
     void render_config_ui(float width, float height);
     const std::string& get_current_config() const;
+    const std::vector<std::string>& get_config_files() const { return config_files; }
+    void save_last_config_name(const std::string& name);
+    std::string load_last_config_name();
 };
