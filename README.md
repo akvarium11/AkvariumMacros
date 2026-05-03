@@ -18,7 +18,7 @@
 
 ## <a id="features"></a>⌨️Features 
 
-![image](https://files.catbox.moe/fim74l.png)
+![image](https://files.catbox.moe/mv65se.jpg)
 
 | # | Features               | Purpose       | 
 |---|------------------------------------|----------------|
@@ -61,7 +61,7 @@ The project is distributed under the [MIT license](https://github.com/akvarium11
 
 ## <a id="features-rus"></a>⌨️Возможности 
 
-![image](https://files.catbox.moe/fim74l.png)
+![image](https://files.catbox.moe/mv65se.jpg)
 
 | # | Функция                    | Для чего |
 |---|----------------------------|----------|
