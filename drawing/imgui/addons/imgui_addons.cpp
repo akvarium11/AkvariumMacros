@@ -1383,34 +1383,30 @@ void ImAdd::BeginChild(const char* label, const ImVec2& size_arg)
     ImGuiIO& io = GetIO(); (void)io;
     const ImGuiStyle& style = g.Style;
     std::string bane = label;
-    ImGui::BeginChild(label, size_arg, ImGuiChildFlags_None, ImGuiWindowFlags_NoDecoration | ImGuiWindowFlags_NoBackground);
-    {
 
+    // Outer wrapper (transparent, for background draw)
+    ImGui::BeginChild(label, size_arg, ImGuiChildFlags_None,
+        ImGuiWindowFlags_NoDecoration | ImGuiWindowFlags_NoBackground);
+    {
         ImVec2 pos = ImGui::GetWindowPos();
         ImVec2 size = ImGui::GetWindowSize();
         ImDrawList* pDrawList = ImGui::GetWindowDrawList();
 
-        float HeaderHeight = ImGui::GetFontSize() + style.WindowPadding.y * 2 + style.ChildBorderSize * 2;
         if (bane != "!") {
-            pDrawList->AddRectFilled(pos, pos + size, GetColorU32(ImGuiCol_ChildBg), 6);
+            // Filled background with very slight rounding
+            pDrawList->AddRectFilled(pos, pos + size,
+                GetColorU32(ImGuiCol_ChildBg), 6.0f);
+            // Subtle 1px border
+            pDrawList->AddRect(pos, pos + size,
+                IM_COL32(28, 28, 28, 255), 6.0f, 0, 1.0f);
         }
-        if (style.ChildBorderSize > 0)
-        {
-            //   pDrawList->AddRect(pos, pos + size, GetColorU32(ImGuiCol_Border));
-        }
-        if (bane != "!") {
-            //pDrawList->AddText(pos + style.WindowPadding + ImVec2(0, style.ChildBorderSize * 2) + ImVec2(1, 1), GetColorU32(ImGuiCol_TitleBg), label);
-            //pDrawList->AddText(pos + style.WindowPadding + ImVec2(0, style.ChildBorderSize * 2) + ImVec2(-1, -1), GetColorU32(ImGuiCol_TitleBg), label);
-            //pDrawList->AddText(pos + style.WindowPadding + ImVec2(0, style.ChildBorderSize * 2) + ImVec2(1, -1), GetColorU32(ImGuiCol_TitleBg), label);
-            //pDrawList->AddText(pos + style.WindowPadding + ImVec2(0, style.ChildBorderSize * 2) + ImVec2(-1, 1), GetColorU32(ImGuiCol_TitleBg), label);
-            //pDrawList->AddText(pos + style.WindowPadding + ImVec2(0, style.ChildBorderSize * 2), GetColorU32(ImGuiCol_Text), label);
-        }
-        //  pDrawList->AddLine(pos + ImVec2(2, 2), pos + ImVec2(size.x - 2, 2), ImGui::GetColorU32(ImGuiCol_SliderGrab));
-       //   pDrawList->AddLine(pos + ImVec2(2, 3), pos + ImVec2(size.x - 2, 3), ImGui::GetColorU32(ImGuiCol_SliderGrabActive));
-        if (bane != "!") {
-            //    ImGui::SetCursorScreenPos(pos + ImVec2(0, HeaderHeight - style.WindowPadding.y));
-        }
-        ImGui::BeginChild(string(label + string("#Main")).c_str(), ImVec2(), ImGuiChildFlags_Border, NULL);
+
+        // Inner scrollable child with padding
+        ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2(10.0f, 10.0f));
+        ImGui::BeginChild(string(label + string("#Main")).c_str(),
+            ImVec2(), ImGuiChildFlags_None,
+            ImGuiWindowFlags_NoDecoration | ImGuiWindowFlags_NoBackground);
+        ImGui::PopStyleVar();
     }
 }
 

@@ -311,36 +311,83 @@ namespace overlay {
         io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;
         io.ConfigFlags |= ImGuiConfigFlags_NavEnableGamepad;
         ImGuiStyle& style = ImGui::GetStyle();
-        style.WindowRounding = 6;
-        style.ChildRounding = 3;
-        style.TabRounding = 3;
-        style.TabBorderSize = 1;
-        style.ItemSpacing = ImVec2(8, 6);
-        style.FramePadding = ImVec2(8, 5);
+        // === REDESIGNED STYLE - Modern cheat menu aesthetic ===
+        style.WindowRounding = 8.0f;
+        style.ChildRounding = 6.0f;
+        style.FrameRounding = 4.0f;
+        style.PopupRounding = 6.0f;
+        style.ScrollbarRounding = 4.0f;
+        style.GrabRounding = 3.0f;
+        style.TabRounding = 4.0f;
+        style.TabBorderSize = 0.0f;
+        style.WindowBorderSize = 1.0f;
+        style.ChildBorderSize = 1.0f;
+        style.FrameBorderSize = 0.0f;
+        style.ItemSpacing = ImVec2(8, 7);
+        style.ItemInnerSpacing = ImVec2(6, 4);
+        style.FramePadding = ImVec2(10, 6);
+        style.WindowPadding = ImVec2(12, 12);
+        style.ScrollbarSize = 4.0f;
+        style.GrabMinSize = 8.0f;
+        style.IndentSpacing = 14.0f;
+        style.SeparatorTextBorderSize = 1.0f;
+
         ImVec4* colors = ImGui::GetStyle().Colors;
-        colors[ImGuiCol_Text] = ImVec4(1.00f, 1.00f, 1.00f, 1.00f);
-        colors[ImGuiCol_WindowBg] = ImVec4(0.10f, 0.10f, 0.10f, 1.00f);
-        colors[ImGuiCol_ChildBg] = ImVec4(0.13f, 0.13f, 0.13f, 1.00f);
-        colors[ImGuiCol_FrameBg] = ImVec4(0.18f, 0.18f, 0.18f, 1.00f);
-        colors[ImGuiCol_CheckMark] = ImVec4(0.75f, 0.75f, 0.75f, 1.00f);
-        colors[ImGuiCol_SliderGrab] = ImVec4(0.65f, 0.65f, 0.65f, 1.00f);
-        colors[ImGuiCol_SliderGrabActive] = ImVec4(0.80f, 0.80f, 0.80f, 1.00f);
-        colors[ImGuiCol_Button] = ImVec4(0.55f, 0.55f, 0.55f, 1.00f);
-        colors[ImGuiCol_ButtonHovered] = ImVec4(0.65f, 0.65f, 0.65f, 1.00f);
-        colors[ImGuiCol_ButtonActive] = ImVec4(0.75f, 0.75f, 0.75f, 1.00f);
-        colors[ImGuiCol_Header] = ImVec4(0.60f, 0.60f, 0.60f, 1.00f);
-        colors[ImGuiCol_HeaderHovered] = ImVec4(0.70f, 0.70f, 0.70f, 1.00f);
-        colors[ImGuiCol_HeaderActive] = ImVec4(0.80f, 0.80f, 0.80f, 1.00f);
-        colors[ImGuiCol_WindowShadow] = ImVec4(0.50f, 0.50f, 0.50f, 1.00f);
-        colors[ImGuiCol_Border] = ImVec4(0.40f, 0.40f, 0.40f, 1.00f);
-        colors[ImGuiCol_FrameBgHovered] = ImVec4(0.25f, 0.25f, 0.25f, 1.00f);
-        colors[ImGuiCol_FrameBgActive] = ImVec4(0.30f, 0.30f, 0.30f, 1.00f);
-        colors[ImGuiCol_PlotHistogramHovered] = ImVec4(0.15f, 0.15f, 0.15f, 1.00f);
-        colors[ImGuiCol_Tab] = ImVec4(0.18f, 0.18f, 0.18f, 1.00f);
-        colors[ImGuiCol_TabHovered] = ImVec4(0.28f, 0.28f, 0.28f, 1.00f);
-        colors[ImGuiCol_TabActive] = ImVec4(0.30f, 0.30f, 0.30f, 1.00f);
-        colors[ImGuiCol_TabUnfocused] = ImVec4(0.12f, 0.12f, 0.12f, 1.00f);
-        colors[ImGuiCol_TabUnfocusedActive] = ImVec4(0.22f, 0.22f, 0.22f, 1.00f);
+        // Base palette - White/Grey, high contrast
+        colors[ImGuiCol_Text] = ImVec4(0.93f, 0.93f, 0.93f, 1.00f);
+        colors[ImGuiCol_TextDisabled] = ImVec4(0.45f, 0.45f, 0.45f, 1.00f);
+        colors[ImGuiCol_WindowBg] = ImVec4(0.09f, 0.09f, 0.09f, 1.00f);
+        colors[ImGuiCol_ChildBg] = ImVec4(0.11f, 0.11f, 0.11f, 1.00f);
+        colors[ImGuiCol_PopupBg] = ImVec4(0.10f, 0.10f, 0.10f, 1.00f);
+        colors[ImGuiCol_Border] = ImVec4(0.22f, 0.22f, 0.22f, 1.00f);
+        colors[ImGuiCol_BorderShadow] = ImVec4(0.00f, 0.00f, 0.00f, 0.00f);
+        colors[ImGuiCol_FrameBg] = ImVec4(0.15f, 0.15f, 0.15f, 1.00f);
+        colors[ImGuiCol_FrameBgHovered] = ImVec4(0.20f, 0.20f, 0.20f, 1.00f);
+        colors[ImGuiCol_FrameBgActive] = ImVec4(0.24f, 0.24f, 0.24f, 1.00f);
+        colors[ImGuiCol_TitleBg] = ImVec4(0.00f, 0.00f, 0.00f, 0.60f);
+        colors[ImGuiCol_TitleBgActive] = ImVec4(0.09f, 0.09f, 0.09f, 1.00f);
+        colors[ImGuiCol_TitleBgCollapsed] = ImVec4(0.09f, 0.09f, 0.09f, 1.00f);
+        colors[ImGuiCol_MenuBarBg] = ImVec4(0.12f, 0.12f, 0.12f, 1.00f);
+        colors[ImGuiCol_ScrollbarBg] = ImVec4(0.09f, 0.09f, 0.09f, 1.00f);
+        colors[ImGuiCol_ScrollbarGrab] = ImVec4(0.30f, 0.30f, 0.30f, 1.00f);
+        colors[ImGuiCol_ScrollbarGrabHovered] = ImVec4(0.40f, 0.40f, 0.40f, 1.00f);
+        colors[ImGuiCol_ScrollbarGrabActive] = ImVec4(0.55f, 0.55f, 0.55f, 1.00f);
+        colors[ImGuiCol_CheckMark] = ImVec4(0.90f, 0.90f, 0.90f, 1.00f);
+        colors[ImGuiCol_SliderGrab] = ImVec4(0.72f, 0.72f, 0.72f, 1.00f);
+        colors[ImGuiCol_SliderGrabActive] = ImVec4(0.90f, 0.90f, 0.90f, 1.00f);
+        colors[ImGuiCol_Button] = ImVec4(0.18f, 0.18f, 0.18f, 1.00f);
+        colors[ImGuiCol_ButtonHovered] = ImVec4(0.26f, 0.26f, 0.26f, 1.00f);
+        colors[ImGuiCol_ButtonActive] = ImVec4(0.35f, 0.35f, 0.35f, 1.00f);
+        colors[ImGuiCol_Header] = ImVec4(0.18f, 0.18f, 0.18f, 1.00f);
+        colors[ImGuiCol_HeaderHovered] = ImVec4(0.24f, 0.24f, 0.24f, 1.00f);
+        colors[ImGuiCol_HeaderActive] = ImVec4(0.30f, 0.30f, 0.30f, 1.00f);
+        colors[ImGuiCol_Separator] = ImVec4(0.20f, 0.20f, 0.20f, 1.00f);
+        colors[ImGuiCol_SeparatorHovered] = ImVec4(0.35f, 0.35f, 0.35f, 1.00f);
+        colors[ImGuiCol_SeparatorActive] = ImVec4(0.50f, 0.50f, 0.50f, 1.00f);
+        colors[ImGuiCol_ResizeGrip] = ImVec4(0.30f, 0.30f, 0.30f, 0.40f);
+        colors[ImGuiCol_ResizeGripHovered] = ImVec4(0.50f, 0.50f, 0.50f, 0.60f);
+        colors[ImGuiCol_ResizeGripActive] = ImVec4(0.70f, 0.70f, 0.70f, 0.80f);
+        colors[ImGuiCol_Tab] = ImVec4(0.11f, 0.11f, 0.11f, 1.00f);
+        colors[ImGuiCol_TabHovered] = ImVec4(0.22f, 0.22f, 0.22f, 1.00f);
+        colors[ImGuiCol_TabActive] = ImVec4(0.18f, 0.18f, 0.18f, 1.00f);
+        colors[ImGuiCol_TabUnfocused] = ImVec4(0.09f, 0.09f, 0.09f, 1.00f);
+        colors[ImGuiCol_TabUnfocusedActive] = ImVec4(0.14f, 0.14f, 0.14f, 1.00f);
+        colors[ImGuiCol_PlotLines] = ImVec4(0.60f, 0.60f, 0.60f, 1.00f);
+        colors[ImGuiCol_PlotLinesHovered] = ImVec4(0.80f, 0.80f, 0.80f, 1.00f);
+        colors[ImGuiCol_PlotHistogram] = ImVec4(0.55f, 0.55f, 0.55f, 1.00f);
+        colors[ImGuiCol_PlotHistogramHovered] = ImVec4(0.72f, 0.72f, 0.72f, 1.00f);
+        colors[ImGuiCol_TableHeaderBg] = ImVec4(0.14f, 0.14f, 0.14f, 1.00f);
+        colors[ImGuiCol_TableBorderStrong] = ImVec4(0.22f, 0.22f, 0.22f, 1.00f);
+        colors[ImGuiCol_TableBorderLight] = ImVec4(0.16f, 0.16f, 0.16f, 1.00f);
+        colors[ImGuiCol_TableRowBg] = ImVec4(0.00f, 0.00f, 0.00f, 0.00f);
+        colors[ImGuiCol_TableRowBgAlt] = ImVec4(1.00f, 1.00f, 1.00f, 0.03f);
+        colors[ImGuiCol_TextSelectedBg] = ImVec4(0.35f, 0.35f, 0.35f, 0.35f);
+        colors[ImGuiCol_DragDropTarget] = ImVec4(0.85f, 0.85f, 0.85f, 0.90f);
+        colors[ImGuiCol_NavHighlight] = ImVec4(0.60f, 0.60f, 0.60f, 1.00f);
+        colors[ImGuiCol_NavWindowingHighlight] = ImVec4(1.00f, 1.00f, 1.00f, 0.70f);
+        colors[ImGuiCol_NavWindowingDimBg] = ImVec4(0.80f, 0.80f, 0.80f, 0.20f);
+        colors[ImGuiCol_ModalWindowDimBg] = ImVec4(0.00f, 0.00f, 0.00f, 0.50f);
+        colors[ImGuiCol_WindowShadow] = ImVec4(0.00f, 0.00f, 0.00f, 1.00f);
         ImGui_ImplWin32_Init(hwnd);
         ImGui_ImplDX11_Init(g_pd3dDevice, g_pd3dDeviceContext);
         ImVec4 clear_color = ImVec4(0.f, 0.f, 0.f, 0.f);
@@ -494,181 +541,303 @@ namespace overlay {
                 }
 
                 if (overlay::visible) {
+                    // =====================================================
+                    // REDESIGNED MAIN MENU - Modern cheat client aesthetic
+                    // Sidebar navigation + clean content panel layout
+                    // =====================================================
+                    static int active_tab = 0; // 0=Macro, 1=Indicators, 2=Misc, 3=Config
+
+                    // Helper lambda: styled section header
+                    auto SectionHeader = [](const char* label) {
+                        ImDrawList* dl = ImGui::GetWindowDrawList();
+                        ImVec2 p = ImGui::GetCursorScreenPos();
+                        float w = ImGui::GetContentRegionAvail().x;
+                        // Subtle left accent bar
+                        dl->AddRectFilled(p, ImVec2(p.x + 2.0f, p.y + ImGui::GetTextLineHeight()), IM_COL32(200, 200, 200, 200));
+                        ImGui::SetCursorScreenPos(ImVec2(p.x + 8.0f, p.y));
+                        ImGui::TextColored(ImVec4(0.80f, 0.80f, 0.80f, 1.0f), label);
+                        // Thin separator line after header
+                        ImVec2 sep_p = ImGui::GetCursorScreenPos();
+                        dl->AddLine(sep_p, ImVec2(sep_p.x + w, sep_p.y), IM_COL32(40, 40, 40, 255), 1.0f);
+                        ImGui::Dummy(ImVec2(0.0f, 6.0f));
+                        };
+
+                    // Sidebar nav button helper
+                    auto NavButton = [](const char* label, bool selected, ImVec2 size) -> bool {
+                        ImDrawList* dl = ImGui::GetWindowDrawList();
+                        ImVec2 p = ImGui::GetCursorScreenPos();
+                        bool hovered, held;
+                        ImGuiID id = ImGui::GetID(label);
+                        ImRect bb(p, p + size);
+                        ImGui::ItemSize(size);
+                        if (!ImGui::ItemAdd(bb, id)) return false;
+                        bool pressed = ImGui::ButtonBehavior(bb, id, &hovered, &held);
+
+                        // Background
+                        ImU32 bg;
+                        if (selected)      bg = IM_COL32(38, 38, 38, 255);
+                        else if (hovered)  bg = IM_COL32(26, 26, 26, 255);
+                        else               bg = IM_COL32(0, 0, 0, 0);
+                        dl->AddRectFilled(bb.Min, bb.Max, bg, 4.0f);
+
+                        // Left accent if selected
+                        if (selected) {
+                            dl->AddRectFilled(bb.Min, ImVec2(bb.Min.x + 2.0f, bb.Max.y), IM_COL32(210, 210, 210, 255), 1.0f);
+                        }
+
+                        // Text centered vertically
+                        ImVec2 ts = ImGui::CalcTextSize(label);
+                        ImU32 tcol = selected ? IM_COL32(230, 230, 230, 255)
+                            : hovered ? IM_COL32(180, 180, 180, 255)
+                            : IM_COL32(120, 120, 120, 255);
+                        dl->AddText(ImVec2(bb.Min.x + 14.0f, bb.Min.y + (size.y - ts.y) * 0.5f), tcol, label);
+
+                        return pressed;
+                        };
+
                     style.WindowShadowSize = 0;
-                    style.Colors[ImGuiCol_WindowShadow] = style.Colors[ImGuiCol_SliderGrab];
-                    ImGui::SetNextWindowSize(ImVec2(470, 550), ImGuiCond_Once);
-                    ImGui::Begin("AkvariumMacros", nullptr, ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoDecoration);
+                    // Fixed window size, taller to accommodate sidebar layout
+                    ImGui::SetNextWindowSize(ImVec2(520, 580), ImGuiCond_Once);
+                    ImGui::Begin("AkvariumMacros", nullptr,
+                        ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoCollapse |
+                        ImGuiWindowFlags_NoDecoration | ImGuiWindowFlags_NoScrollbar |
+                        ImGuiWindowFlags_NoScrollWithMouse);
+
                     ImDrawList* draw = ImGui::GetWindowDrawList();
                     ImVec2 window_pos = ImGui::GetWindowPos();
                     ImVec2 window_size = ImGui::GetWindowSize();
-                    ImGui::SetCursorPosY(4);
-                    ImAdd::Text(style.Colors[ImGuiCol_Text], "AkvariumMacros");
-                    draw->AddShadowRect(ImVec2(window_pos.x, window_pos.y + 21.25), ImVec2(window_pos.x + window_size.x, window_pos.y + 22.25), ImGui::GetColorU32(ImGuiCol_SliderGrab), 15, ImVec2(0, 0), NULL, 0);
-                    draw->AddLine(ImVec2(window_pos.x, window_pos.y + 21.25), ImVec2(window_pos.x + window_size.x, window_pos.y + 21.25), ImGui::GetColorU32(ImGuiCol_SliderGrab), 1);
-                    ImGui::SetCursorPosY(28.0f);
-                    if (ImGui::BeginTabBar("##MainTabs", ImGuiTabBarFlags_Reorderable)) {
-                        if (ImGui::BeginTabItem("Macro")) {
-                            ImAdd::BeginChild("Macros", ImVec2(ImGui::GetWindowWidth() - 30, 480));
-                            draw_shadowed_text("Double Click");
 
-                            ImGui::Dummy(ImVec2(0.0f, 6.0f));
-
-                            ImAdd::CheckBox("Auto Double Clicker", &globals::features::ADclick);
-
-                            //ImGui::Dummy(ImVec2(0.0f, 6.0f));
-
-                            ImAdd::CheckBox("Toggle Key", &globals::features::ADKeyToggle);
-                            ImGui::SameLine(ImGui::GetWindowWidth() / 2 - 60);
-                            Bind(&globals::features::ADkeyToggleBind, ImVec2(40, 10));
-
-                            ImAdd::CheckBox("Double click on key", &globals::features::ADclickOnKey);
-                            ImGui::SameLine(ImGui::GetWindowWidth() / 2 - 60);
-                            Bind(&globals::features::ADclickBind, ImVec2(40, 10));
-
-                            ImGui::Dummy(ImVec2(0.0f, 6.0f));
-
-                            ImAdd::SliderInt("Click Delay (ms)", &globals::features::ADclickDelay, 0, 100);
-
-                            ImGui::Dummy(ImVec2(0.0f, 6.0f));
-
-                            ImGui::Separator();
-
-                            ImAdd::Text(ImVec4(1.0, 1.0, 1.0, 1.0), "Inventory slot swap");
-
-                            ImGui::Dummy(ImVec2(0.0f, 6.0f));
-
-                            ImAdd::CheckBox("Swap after clicks", &globals::features::swapOnClick);
-                            ImGui::SameLine(ImGui::GetWindowWidth() / 2 - 60);
-                            Bind(&globals::features::SwapOnTargetSlot, ImVec2(40, 10));
-
-                            /* I figured out its kinda impossible to make
-                            ImAdd::CheckBox("Swap before clicks", &globals::features::swapBeforeClick);
-                            ImGui::SameLine(ImGui::GetWindowWidth() / 2 - 60);
-                            Bind(&globals::features::SwapBeforeTargetSlot, ImVec2(40, 10)); */
-
-                            ImAdd::CheckBox("Swap between clicks", &globals::features::swapBetweenClicks);
-                            ImGui::SameLine(ImGui::GetWindowWidth() / 2 - 60);
-                            Bind(&globals::features::SwapBetweenTargetSlot, ImVec2(40, 10));
-
-                            ImGui::Dummy(ImVec2(0.0f, 6.0f));
-
-                            ImAdd::SliderInt("Swap delay (ms)", &globals::features::swapDelay, 0, 100);
-
-                            ImGui::Dummy(ImVec2(0.0f, 6.0f));
-
-                            ImGui::Separator();
-
-                            ImGui::Dummy(ImVec2(0.0f, 6.0f));
-
-                            ImAdd::CheckBox("Attribute swap", &globals::features::attributeSwap);
-                            ImGui::SameLine(ImGui::GetWindowWidth() / 2 - 60);
-                            Bind(&globals::features::attributeSwapKey, ImVec2(40, 10));
-
-                            ImAdd::Text(ImVec4(1.0, 1.0, 1.0, 1.0), "Slot to swap on");
-                            ImGui::SameLine(ImGui::GetWindowWidth() / 2 - 60);
-                            Bind(&globals::features::attributeSwapTargetSlot, ImVec2(40, 10));
-
-                            ImGui::Dummy(ImVec2(0.0f, 6.0f));
-
-                            ImAdd::SliderInt("Attribute swap delay (ms)", &globals::features::attributeSwapDelay, 0, 100);
-
-                            ImGui::Dummy(ImVec2(0.0f, 6.0f));
-
-                            ImGui::Separator();
-
-                            ImGui::Dummy(ImVec2(0.0f, 6.0f));
-
-                            ImAdd::CheckBox("Spear swap", &globals::features::spearSwap);
-                            ImGui::SameLine(ImGui::GetWindowWidth() / 2 - 60);
-                            Bind(&globals::features::spearSwapKey, ImVec2(40, 10));
-
-                            ImAdd::Text(ImVec4(1.0, 1.0, 1.0, 1.0), "Spear slot");
-                            ImGui::SameLine(ImGui::GetWindowWidth() / 2 - 60);
-                            Bind(&globals::features::spearSwapTargetSlot, ImVec2(40, 10));
-
-                            ImAdd::EndChild();
-                            ImGui::EndTabItem();
-                        }
-                        if (ImGui::BeginTabItem("Indicators")) {
-                            ImAdd::BeginChild("Indicators", ImVec2(ImGui::GetWindowWidth() - 30, 480));
-                            draw_shadowed_text("Indicators");
-
-                            ImGui::Dummy(ImVec2(0.0f, 6.0f));
-
-                            ImAdd::CheckBox("Auto Dclick Indicator", &globals::features::AdIndicator);
-                            ImAdd::Text({ 1.0, 1.0, 1.0, 1.0 }, "Indicator color");
-                            ImGui::SameLine(ImGui::GetWindowWidth() / 2 - 20);
-                            ImAdd::ColorEdit4("##AdIndicatorColor", (float*)&globals::features::AdIndicatorColor);
-
-                            ImGui::Dummy(ImVec2(0.0f, 6.0f));
-
-                            ImGui::Separator();
-
-                            ImGui::Dummy(ImVec2(0.0f, 6.0f));
-
-                            ImAdd::CheckBox("Attribute swap indicator", &globals::features::attributeSwapIndicator);
-                            ImAdd::Text({ 1.0, 1.0, 1.0, 1.0 }, "Indicator color");
-                            ImGui::SameLine(ImGui::GetWindowWidth() / 2 - 20);
-                            ImAdd::ColorEdit4("##AttrSwapIndicatorColor", (float*)&globals::features::attributeSwapIndicatorColor);
-
-                            ImGui::Dummy(ImVec2(0.0f, 6.0f));
-
-                            ImGui::Separator();
-
-                            ImGui::Dummy(ImVec2(0.0f, 6.0f));
-
-                            ImAdd::CheckBox("Spear swap indicator", &globals::features::spearSwapIndicator);
-                            ImAdd::Text({ 1.0, 1.0, 1.0, 1.0 }, "Indicator color");
-                            ImGui::SameLine(ImGui::GetWindowWidth() / 2 - 20);
-                            ImAdd::ColorEdit4("##SpearSwapIndicatorColor", (float*)&globals::features::spearSwapIndicatorColor);
-
-                            ImAdd::EndChild();
-                            ImGui::EndTabItem();
-                        }
-                        if (ImGui::BeginTabItem("Misc")) {
-                            ImAdd::BeginChild("Misc", ImVec2(ImGui::GetWindowWidth() - 30, 480));
-                            draw_shadowed_text("Misc");
-                            //ImAdd::CheckBox("Watermark", &globals::misc::watermark);
-                            //ImGui::Dummy(ImVec2(0.0f, 6.0f));
-                            std::vector<const char*> stuff = { "FPS", "Date" };
-                            if (globals::misc::watermarkstuff == nullptr) {
-                                globals::misc::watermarkstuff = new std::vector<int>(stuff.size(), 0);
-                            }
-                            //ImAdd::MultiCombo("Watermark Info", globals::misc::watermarkstuff, stuff);
-                            //ImGui::Dummy(ImVec2(0.0f, 6.0f));
-                            //ImAdd::CheckBox("VSYNC", &globals::misc::vsync);
-                            ImGui::Dummy(ImVec2(0.0f, 6.0f));
-                            //ImAdd::CheckBox("Keybind List", &globals::misc::keybinds);
-                            //ImGui::Dummy(ImVec2(0.0f, 6.0f));
-                            //ImAdd::Combo("Keybind Style", &globals::misc::keybindsstyle, "Dynamic\0Static\0");
-                            //ImGui::Dummy(ImVec2(0.0f, 6.0f));
-                            ImAdd::CheckBox("Streamproof", &globals::misc::streamproof);
-                            ImAdd::Text(ImVec4(1.0, 1.0, 1.0, 1.0), "# Hides gui from Discord / OBS / any recording app");
-
-                            ImGui::Dummy(ImVec2(0.0f, 12.0f));
-
-                            ImAdd::CheckBox("Panic button", &globals::misc::panicKey);
-                            ImGui::SameLine(ImGui::GetWindowWidth() / 2 - 60);
-                            Bind(&globals::misc::panicKeyBind, ImVec2(40, 10));
-                            ImAdd::Text(ImVec4(1.0, 1.0, 1.0, 1.0), "# Instantly exits on key press");
-
-                            ImGui::Dummy(ImVec2(0.0f, 12.0f));
-
-                            if (ImAdd::Button("Exit", ImVec2(ImGui::GetContentRegionAvail().x, 35))) {
-                                ExitProcess(0);
-                            }
-                            ImAdd::EndChild();
-                            ImGui::EndTabItem();
-                        }
-                        if (ImGui::BeginTabItem("Config")) {
-                            g_config_system.render_config_ui(
-                                ImGui::GetWindowWidth() - 30,
-                                480
-                            );
-                            ImGui::EndTabItem();
-                        }
-                        ImGui::EndTabBar();
+                    // ── HEADER BAR ──────────────────────────────────────────
+                    const float HEADER_H = 36.0f;
+                    // Header background - slightly lighter than window bg
+                    draw->AddRectFilled(
+                        window_pos,
+                        ImVec2(window_pos.x + window_size.x, window_pos.y + HEADER_H),
+                        IM_COL32(13, 13, 13, 255), 8.0f,
+                        ImDrawFlags_RoundCornersTop
+                    );
+                    // Bottom border of header
+                    draw->AddLine(
+                        ImVec2(window_pos.x, window_pos.y + HEADER_H),
+                        ImVec2(window_pos.x + window_size.x, window_pos.y + HEADER_H),
+                        IM_COL32(30, 30, 30, 255), 1.0f
+                    );
+                    // Title text
+                    {
+                        const char* title = "AkvariumMacros";
+                        ImVec2 ts = ImGui::CalcTextSize(title);
+                        // Shadow
+                        draw->AddText(
+                            ImVec2(window_pos.x + 13.0f + 1, window_pos.y + (HEADER_H - ts.y) * 0.5f + 1),
+                            IM_COL32(0, 0, 0, 180), title
+                        );
+                        draw->AddText(
+                            ImVec2(window_pos.x + 13.0f, window_pos.y + (HEADER_H - ts.y) * 0.5f),
+                            IM_COL32(230, 230, 230, 255), title
+                        );
                     }
+                    // Small FPS indicator top-right
+                    {
+                        int fps = (int)(1.0f / ImGui::GetIO().DeltaTime);
+                        char fps_buf[16];
+                        snprintf(fps_buf, sizeof(fps_buf), "%d fps", fps);
+                        ImVec2 ts = ImGui::CalcTextSize(fps_buf);
+                        draw->AddText(
+                            ImVec2(window_pos.x + window_size.x - ts.x - 12.0f,
+                                window_pos.y + (HEADER_H - ts.y) * 0.5f),
+                            IM_COL32(70, 70, 70, 255), fps_buf
+                        );
+                    }
+
+                    // ── BODY LAYOUT ─────────────────────────────────────────
+                    const float SIDEBAR_W = 110.0f;
+                    const float BODY_Y = HEADER_H + 1.0f;
+                    const float BODY_H = window_size.y - BODY_Y;
+                    const float CONTENT_X = SIDEBAR_W;
+                    const float CONTENT_W = window_size.x - SIDEBAR_W;
+
+                    // Sidebar background
+                    draw->AddRectFilled(
+                        ImVec2(window_pos.x, window_pos.y + BODY_Y),
+                        ImVec2(window_pos.x + SIDEBAR_W, window_pos.y + window_size.y),
+                        IM_COL32(11, 11, 11, 255),
+                        0.0f
+                    );
+                    // Sidebar/content divider
+                    draw->AddLine(
+                        ImVec2(window_pos.x + SIDEBAR_W, window_pos.y + BODY_Y),
+                        ImVec2(window_pos.x + SIDEBAR_W, window_pos.y + window_size.y),
+                        IM_COL32(28, 28, 28, 255), 1.0f
+                    );
+
+                    // ── SIDEBAR NAV ─────────────────────────────────────────
+                    ImGui::SetCursorScreenPos(ImVec2(window_pos.x, window_pos.y + BODY_Y + 8.0f));
+                    ImGui::BeginGroup();
+                    const ImVec2 nav_btn_size = ImVec2(SIDEBAR_W, 34.0f);
+                    const char* nav_labels[] = { "Macro", "Indicators", "Misc", "Config" };
+                    for (int i = 0; i < 4; i++) {
+                        ImGui::SetCursorScreenPos(ImVec2(
+                            window_pos.x,
+                            window_pos.y + BODY_Y + 8.0f + i * (nav_btn_size.y + 4.0f)
+                        ));
+                        if (NavButton(nav_labels[i], active_tab == i, nav_btn_size))
+                            active_tab = i;
+                    }
+                    ImGui::EndGroup();
+
+                    // ── CONTENT PANEL ────────────────────────────────────────
+                    ImGui::SetCursorScreenPos(
+                        ImVec2(window_pos.x + CONTENT_X + 10.0f, window_pos.y + BODY_Y + 10.0f)
+                    );
+
+                    // Content child window (scrollable)
+                    const float content_inner_w = CONTENT_W - 20.0f;
+                    const float content_inner_h = BODY_H - 20.0f;
+
+                    ImGui::PushStyleColor(ImGuiCol_ChildBg, ImVec4(0.0f, 0.0f, 0.0f, 0.0f));
+                    ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2(0, 0));
+                    ImGui::BeginChild("##ContentPanel", ImVec2(content_inner_w, content_inner_h),
+                        ImGuiChildFlags_None, ImGuiWindowFlags_NoScrollbar);
+                    ImGui::PopStyleVar();
+                    ImGui::PopStyleColor();
+
+                    // ── TAB 0: MACRO ─────────────────────────────────────────
+                    if (active_tab == 0) {
+                        ImAdd::BeginChild("Macros", ImVec2(content_inner_w, content_inner_h - 2.0f));
+
+                        SectionHeader("Double Click");
+
+                        ImAdd::CheckBox("Auto Double Clicker", &globals::features::ADclick);
+                        ImGui::Dummy(ImVec2(0.0f, 2.0f));
+
+                        ImAdd::CheckBox("Toggle Key", &globals::features::ADKeyToggle);
+                        ImGui::SameLine(ImGui::GetWindowWidth() / 2 - 50);
+                        Bind(&globals::features::ADkeyToggleBind, ImVec2(44, 14));
+
+                        ImAdd::CheckBox("Double click on key", &globals::features::ADclickOnKey);
+                        ImGui::SameLine(ImGui::GetWindowWidth() / 2 - 50);
+                        Bind(&globals::features::ADclickBind, ImVec2(44, 14));
+
+                        ImGui::Dummy(ImVec2(0.0f, 6.0f));
+                        ImAdd::SliderInt("Click Delay (ms)", &globals::features::ADclickDelay, 0, 100);
+                        ImGui::Dummy(ImVec2(0.0f, 10.0f));
+
+                        SectionHeader("Inventory Slot Swap");
+
+                        ImAdd::CheckBox("Swap after clicks", &globals::features::swapOnClick);
+                        ImGui::SameLine(ImGui::GetWindowWidth() / 2 - 50);
+                        Bind(&globals::features::SwapOnTargetSlot, ImVec2(44, 14));
+
+                        ImAdd::CheckBox("Swap between clicks", &globals::features::swapBetweenClicks);
+                        ImGui::SameLine(ImGui::GetWindowWidth() / 2 - 50);
+                        Bind(&globals::features::SwapBetweenTargetSlot, ImVec2(44, 14));
+
+                        ImGui::Dummy(ImVec2(0.0f, 6.0f));
+                        ImAdd::SliderInt("Swap delay (ms)", &globals::features::swapDelay, 0, 100);
+                        ImGui::Dummy(ImVec2(0.0f, 10.0f));
+
+                        SectionHeader("Attribute Swap");
+
+                        ImAdd::CheckBox("Attribute swap", &globals::features::attributeSwap);
+                        ImGui::SameLine(ImGui::GetWindowWidth() / 2 - 50);
+                        Bind(&globals::features::attributeSwapKey, ImVec2(44, 14));
+
+                        ImAdd::Text(ImVec4(0.65f, 0.65f, 0.65f, 1.0f), "Slot to swap on");
+                        ImGui::SameLine(ImGui::GetWindowWidth() / 2 - 50);
+                        Bind(&globals::features::attributeSwapTargetSlot, ImVec2(44, 14));
+
+                        ImGui::Dummy(ImVec2(0.0f, 6.0f));
+                        ImAdd::SliderInt("Attribute swap delay (ms)", &globals::features::attributeSwapDelay, 0, 100);
+                        ImGui::Dummy(ImVec2(0.0f, 10.0f));
+
+                        SectionHeader("Spear Swap");
+
+                        ImAdd::CheckBox("Spear swap", &globals::features::spearSwap);
+                        ImGui::SameLine(ImGui::GetWindowWidth() / 2 - 50);
+                        Bind(&globals::features::spearSwapKey, ImVec2(44, 14));
+
+                        ImAdd::Text(ImVec4(0.65f, 0.65f, 0.65f, 1.0f), "Spear slot");
+                        ImGui::SameLine(ImGui::GetWindowWidth() / 2 - 50);
+                        Bind(&globals::features::spearSwapTargetSlot, ImVec2(44, 14));
+
+                        ImAdd::EndChild();
+                    }
+
+                    // ── TAB 1: INDICATORS ────────────────────────────────────
+                    else if (active_tab == 1) {
+                        ImAdd::BeginChild("Indicators", ImVec2(content_inner_w, content_inner_h - 2.0f));
+
+                        SectionHeader("Click Indicators");
+
+                        ImAdd::CheckBox("Auto Dclick Indicator", &globals::features::AdIndicator);
+                        ImGui::Dummy(ImVec2(0.0f, 4.0f));
+                        ImAdd::Text(ImVec4(0.65f, 0.65f, 0.65f, 1.0f), "Indicator color");
+                        ImGui::SameLine(ImGui::GetWindowWidth() / 2 - 20);
+                        ImAdd::ColorEdit4("##AdIndicatorColor", (float*)&globals::features::AdIndicatorColor);
+
+                        ImGui::Dummy(ImVec2(0.0f, 10.0f));
+                        SectionHeader("Swap Indicators");
+
+                        ImAdd::CheckBox("Attribute swap indicator", &globals::features::attributeSwapIndicator);
+                        ImGui::Dummy(ImVec2(0.0f, 4.0f));
+                        ImAdd::Text(ImVec4(0.65f, 0.65f, 0.65f, 1.0f), "Indicator color");
+                        ImGui::SameLine(ImGui::GetWindowWidth() / 2 - 20);
+                        ImAdd::ColorEdit4("##AttrSwapIndicatorColor", (float*)&globals::features::attributeSwapIndicatorColor);
+
+                        ImGui::Dummy(ImVec2(0.0f, 10.0f));
+
+                        ImAdd::CheckBox("Spear swap indicator", &globals::features::spearSwapIndicator);
+                        ImGui::Dummy(ImVec2(0.0f, 4.0f));
+                        ImAdd::Text(ImVec4(0.65f, 0.65f, 0.65f, 1.0f), "Indicator color");
+                        ImGui::SameLine(ImGui::GetWindowWidth() / 2 - 20);
+                        ImAdd::ColorEdit4("##SpearSwapIndicatorColor", (float*)&globals::features::spearSwapIndicatorColor);
+
+                        ImAdd::EndChild();
+                    }
+
+                    // ── TAB 2: MISC ──────────────────────────────────────────
+                    else if (active_tab == 2) {
+                        ImAdd::BeginChild("Misc", ImVec2(content_inner_w, content_inner_h - 2.0f));
+
+                        SectionHeader("General");
+
+                        std::vector<const char*> stuff = { "FPS", "Date" };
+                        if (globals::misc::watermarkstuff == nullptr) {
+                            globals::misc::watermarkstuff = new std::vector<int>(stuff.size(), 0);
+                        }
+
+                        ImAdd::CheckBox("Streamproof", &globals::misc::streamproof);
+                        ImGui::Dummy(ImVec2(0.0f, 2.0f));
+                        ImAdd::Text(ImVec4(0.45f, 0.45f, 0.45f, 1.0f), "# Hides gui from Discord / OBS / any recording app");
+
+                        ImGui::Dummy(ImVec2(0.0f, 10.0f));
+                        SectionHeader("Safety");
+
+                        ImAdd::CheckBox("Panic button", &globals::misc::panicKey);
+                        ImGui::SameLine(ImGui::GetWindowWidth() / 2 - 50);
+                        Bind(&globals::misc::panicKeyBind, ImVec2(44, 14));
+                        ImGui::Dummy(ImVec2(0.0f, 2.0f));
+                        ImAdd::Text(ImVec4(0.45f, 0.45f, 0.45f, 1.0f), "# Instantly exits on key press");
+
+                        ImGui::Dummy(ImVec2(0.0f, 16.0f));
+
+                        // Exit button full width
+                        if (ImAdd::Button("Exit", ImVec2(ImGui::GetContentRegionAvail().x, 32))) {
+                            ExitProcess(0);
+                        }
+
+                        ImAdd::EndChild();
+                    }
+
+                    // ── TAB 3: CONFIG ─────────────────────────────────────────
+                    else if (active_tab == 3) {
+                        g_config_system.render_config_ui(
+                            content_inner_w,
+                            content_inner_h - 2.0f
+                        );
+                    }
+
+                    ImGui::EndChild(); // ##ContentPanel
                     ImGui::End();
                 }
             }
