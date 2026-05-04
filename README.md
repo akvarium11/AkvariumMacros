@@ -35,7 +35,10 @@
 
 ## <a id="how-to-use"></a> ▶️How to Use
 
-Just launch the exe with Minecraft opened and press *INSERT*.
+Just launch the exe with Minecraft opened and press *INSERT*. 
+
+> [!IMPORTANT]  
+> Minecraft needs to be in windowed mode.
 
 ## <a id="ban"></a> ❓Would i get banned?
 
@@ -86,6 +89,9 @@ The project is distributed under the [MIT license](https://github.com/akvarium11
 ## <a id="how-to-use-rus"></a> ▶️Как пользоваться
 
 Просто запускаешь exe при открытом Minecraft и жмёшь **INSERT**.
+
+> [!IMPORTANT]  
+> Майнкрафт должен быть в режиме окна.
 
 ## <a id="would-i-get-banned-rus"></a> ❓Можно ли словить бан?
 
