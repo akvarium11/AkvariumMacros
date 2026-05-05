@@ -159,8 +159,8 @@ bool ConfigSystem::load_config(const std::string& name) {
                 };
             auto load_color = [](const json& j, const std::string& key, ImVec4& color) {
                 if (j.contains(key) && j[key].is_array() && j[key].size() == 4) {
-                    color.x = j[key][0]; color.y = j[key][1];
-                    color.z = j[key][2]; color.w = j[key][3];
+                    color.x = j[key][0].get<float>(); color.y = j[key][1].get<float>();
+                    color.z = j[key][2].get<float>(); color.w = j[key][3].get<float>();
                 }
                 };
 
@@ -170,10 +170,10 @@ bool ConfigSystem::load_config(const std::string& name) {
                 auto& feat = config_json["features"];
 
                 // AD Clicker
-                if (feat.contains("ADclick"))      globals::features::ADclick = feat["ADclick"];
-                if (feat.contains("ADclickDelay")) globals::features::ADclickDelay = feat["ADclickDelay"];
-                if (feat.contains("ADclickOnKey")) globals::features::ADclickOnKey = feat["ADclickOnKey"];
-                if (feat.contains("ADKeyToggle"))  globals::features::ADKeyToggle = feat["ADKeyToggle"];
+                if (feat.contains("ADclick"))      globals::features::ADclick = feat["ADclick"].get<bool>();
+                if (feat.contains("ADclickDelay")) globals::features::ADclickDelay = feat["ADclickDelay"].get<int>();
+                if (feat.contains("ADclickOnKey")) globals::features::ADclickOnKey = feat["ADclickOnKey"].get<bool>();
+                if (feat.contains("ADKeyToggle"))  globals::features::ADKeyToggle = feat["ADKeyToggle"].get<bool>();
 
                 if (feat.contains("keybinds")) {
                     auto& kb = feat["keybinds"];
@@ -197,15 +197,15 @@ bool ConfigSystem::load_config(const std::string& name) {
                 load_color(feat, "spearSwapIndicatorColor", globals::features::spearSwapIndicatorColor);
 
                 // Swaps
-                if (feat.contains("swapOnClick"))      globals::features::swapOnClick = feat["swapOnClick"];
-                if (feat.contains("swapBeforeClick"))  globals::features::swapBeforeClick = feat["swapBeforeClick"];
-                if (feat.contains("swapBetweenClicks"))globals::features::swapBetweenClicks = feat["swapBetweenClicks"];
-                if (feat.contains("swapDelay"))        globals::features::swapDelay = feat["swapDelay"];
+                if (feat.contains("swapOnClick"))      globals::features::swapOnClick = feat["swapOnClick"].get<bool>();
+                if (feat.contains("swapBeforeClick"))  globals::features::swapBeforeClick = feat["swapBeforeClick"].get<bool>();
+                if (feat.contains("swapBetweenClicks"))globals::features::swapBetweenClicks = feat["swapBetweenClicks"].get<bool>();
+                if (feat.contains("swapDelay"))        globals::features::swapDelay = feat["swapDelay"].get<int>();
 
-                if (feat.contains("attributeSwap"))      globals::features::attributeSwap = feat["attributeSwap"];
-                if (feat.contains("attributeSwapDelay")) globals::features::attributeSwapDelay = feat["attributeSwapDelay"];
+                if (feat.contains("attributeSwap"))      globals::features::attributeSwap = feat["attributeSwap"].get<bool>();
+                if (feat.contains("attributeSwapDelay")) globals::features::attributeSwapDelay = feat["attributeSwapDelay"].get<int>();
 
-                if (feat.contains("spearSwap")) globals::features::spearSwap = feat["spearSwap"];
+                if (feat.contains("spearSwap")) globals::features::spearSwap = feat["spearSwap"].get<bool>();
 
                 std::cout << "[FEATURES] Features loaded successfully" << "\n";
             }
@@ -215,12 +215,12 @@ bool ConfigSystem::load_config(const std::string& name) {
                 std::cout << "[MISC] Loading misc..." << "\n";
                 auto& misc = config_json["misc"];
 
-                if (misc.contains("watermark"))     globals::misc::watermark = misc["watermark"];
-                if (misc.contains("vsync"))         globals::misc::vsync = misc["vsync"];
-                if (misc.contains("keybinds"))      globals::misc::keybinds = misc["keybinds"];
-                if (misc.contains("keybindsstyle")) globals::misc::keybindsstyle = misc["keybindsstyle"];
-                if (misc.contains("streamproof"))   globals::misc::streamproof = misc["streamproof"];
-                if (misc.contains("panicKey"))      globals::misc::panicKey = misc["panicKey"];
+                if (misc.contains("watermark"))     globals::misc::watermark = misc["watermark"].get<bool>();
+                if (misc.contains("vsync"))         globals::misc::vsync = misc["vsync"].get<bool>();
+                if (misc.contains("keybinds"))      globals::misc::keybinds = misc["keybinds"].get<bool>();
+                if (misc.contains("keybindsstyle")) globals::misc::keybindsstyle = misc["keybindsstyle"].get<int>();
+                if (misc.contains("streamproof"))   globals::misc::streamproof = misc["streamproof"].get<bool>();
+                if (misc.contains("panicKey"))      globals::misc::panicKey = misc["panicKey"].get<bool>();
 
                 if (misc.contains("keybinds_data")) {
                     auto& kb = misc["keybinds_data"];
@@ -390,7 +390,7 @@ const std::string& ConfigSystem::get_current_config() const {
 }
 
 void ConfigSystem::save_last_config_name(const std::string& name) {
-    std::string filepath = config_directory + "\\last.cfg";
+    std::string filepath = config_directory + "\\last.akv";
     std::ofstream file(filepath);
     if (file.is_open()) {
         file << name;
@@ -399,7 +399,7 @@ void ConfigSystem::save_last_config_name(const std::string& name) {
 }
 
 std::string ConfigSystem::load_last_config_name() {
-    std::string filepath = config_directory + "\\last.cfg";
+    std::string filepath = config_directory + "\\last.akv";
     std::ifstream file(filepath);
     if (file.is_open()) {
         std::string name;

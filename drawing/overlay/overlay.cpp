@@ -16,6 +16,8 @@
 #include <thread>
 #include <cstring>
 #include <iostream>
+#include <mmsystem.h>
+#pragma comment(lib, "winmm.lib")
 // Forward declarations for helper functions
 bool CreateDeviceD3D(HWND hWnd);
 void CleanupDeviceD3D();
@@ -392,6 +394,7 @@ namespace overlay {
         ImGui_ImplDX11_Init(g_pd3dDevice, g_pd3dDeviceContext);
         ImVec4 clear_color = ImVec4(0.f, 0.f, 0.f, 0.f);
         bool done = false;
+        timeBeginPeriod(1); // Поднимаем точность системного таймера с ~15ms до 1ms
         while (!done) {
             MSG msg;
             while (::PeekMessage(&msg, nullptr, 0U, 0U, PM_REMOVE)) {
@@ -545,7 +548,24 @@ namespace overlay {
                     // REDESIGNED MAIN MENU - Modern cheat client aesthetic
                     // Sidebar navigation + clean content panel layout
                     // =====================================================
-                    static int active_tab = 0; // 0=Macro, 1=Indicators, 2=Misc, 3=Config
+                    static int   active_tab = 0; // 0=Macro, 1=Indicators, 2=Misc, 3=Config
+                    static int   prev_tab = 0;
+                    static float anim_t = 1.0f;
+                    static float anim_dir = 0.0f;
+                    const  float ANIM_SPEED = 6.0f;
+
+                    if (anim_t < 1.0f) {
+                        anim_t += ImGui::GetIO().DeltaTime * ANIM_SPEED;
+                        if (anim_t > 1.0f) anim_t = 1.0f;
+                    }
+
+                    auto switch_tab = [&](int new_tab) {
+                        if (new_tab == active_tab) return;
+                        prev_tab = active_tab;
+                        anim_dir = (new_tab > active_tab) ? 1.0f : -1.0f;
+                        anim_t = 0.0f;
+                        active_tab = new_tab;
+                        };
 
                     // Helper lambda: styled section header
                     auto SectionHeader = [](const char* label) {
@@ -681,7 +701,7 @@ namespace overlay {
                             window_pos.y + BODY_Y + 8.0f + i * (nav_btn_size.y + 4.0f)
                         ));
                         if (NavButton(nav_labels[i], active_tab == i, nav_btn_size))
-                            active_tab = i;
+                            switch_tab(i);
                     }
                     ImGui::EndGroup();
 
@@ -702,140 +722,122 @@ namespace overlay {
                     ImGui::PopStyleColor();
 
                     // ── TAB 0: MACRO ─────────────────────────────────────────
-                    if (active_tab == 0) {
-                        ImAdd::BeginChild("Macros", ImVec2(content_inner_w, content_inner_h - 2.0f));
-
-                        SectionHeader("Double Click");
-
-                        ImAdd::CheckBox("Auto Double Clicker", &globals::features::ADclick);
-                        ImGui::Dummy(ImVec2(0.0f, 2.0f));
-
-                        ImAdd::CheckBox("Toggle Key", &globals::features::ADKeyToggle);
-                        ImGui::SameLine(ImGui::GetWindowWidth() / 2 - 50);
-                        Bind(&globals::features::ADkeyToggleBind, ImVec2(44, 14));
-
-                        ImAdd::CheckBox("Double click on key", &globals::features::ADclickOnKey);
-                        ImGui::SameLine(ImGui::GetWindowWidth() / 2 - 50);
-                        Bind(&globals::features::ADclickBind, ImVec2(44, 14));
-
-                        ImGui::Dummy(ImVec2(0.0f, 6.0f));
-                        ImAdd::SliderInt("Click Delay (ms)", &globals::features::ADclickDelay, 0, 100);
-                        ImGui::Dummy(ImVec2(0.0f, 10.0f));
-
-                        SectionHeader("Inventory Slot Swap");
-
-                        ImAdd::CheckBox("Swap after clicks", &globals::features::swapOnClick);
-                        ImGui::SameLine(ImGui::GetWindowWidth() / 2 - 50);
-                        Bind(&globals::features::SwapOnTargetSlot, ImVec2(44, 14));
-
-                        ImAdd::CheckBox("Swap between clicks", &globals::features::swapBetweenClicks);
-                        ImGui::SameLine(ImGui::GetWindowWidth() / 2 - 50);
-                        Bind(&globals::features::SwapBetweenTargetSlot, ImVec2(44, 14));
-
-                        ImGui::Dummy(ImVec2(0.0f, 6.0f));
-                        ImAdd::SliderInt("Swap delay (ms)", &globals::features::swapDelay, 0, 100);
-                        ImGui::Dummy(ImVec2(0.0f, 10.0f));
-
-                        SectionHeader("Attribute Swap");
-
-                        ImAdd::CheckBox("Attribute swap", &globals::features::attributeSwap);
-                        ImGui::SameLine(ImGui::GetWindowWidth() / 2 - 50);
-                        Bind(&globals::features::attributeSwapKey, ImVec2(44, 14));
-
-                        ImAdd::Text(ImVec4(0.65f, 0.65f, 0.65f, 1.0f), "Slot to swap on");
-                        ImGui::SameLine(ImGui::GetWindowWidth() / 2 - 50);
-                        Bind(&globals::features::attributeSwapTargetSlot, ImVec2(44, 14));
-
-                        ImGui::Dummy(ImVec2(0.0f, 6.0f));
-                        ImAdd::SliderInt("Attribute swap delay (ms)", &globals::features::attributeSwapDelay, 0, 100);
-                        ImGui::Dummy(ImVec2(0.0f, 10.0f));
-
-                        SectionHeader("Spear Swap");
-
-                        ImAdd::CheckBox("Spear swap", &globals::features::spearSwap);
-                        ImGui::SameLine(ImGui::GetWindowWidth() / 2 - 50);
-                        Bind(&globals::features::spearSwapKey, ImVec2(44, 14));
-
-                        ImAdd::Text(ImVec4(0.65f, 0.65f, 0.65f, 1.0f), "Spear slot");
-                        ImGui::SameLine(ImGui::GetWindowWidth() / 2 - 50);
-                        Bind(&globals::features::spearSwapTargetSlot, ImVec2(44, 14));
-
-                        ImAdd::EndChild();
-                    }
-
-                    // ── TAB 1: INDICATORS ────────────────────────────────────
-                    else if (active_tab == 1) {
-                        ImAdd::BeginChild("Indicators", ImVec2(content_inner_w, content_inner_h - 2.0f));
-
-                        SectionHeader("Click Indicators");
-
-                        ImAdd::CheckBox("Auto Dclick Indicator", &globals::features::AdIndicator);
-                        ImGui::Dummy(ImVec2(0.0f, 4.0f));
-                        ImAdd::Text(ImVec4(0.65f, 0.65f, 0.65f, 1.0f), "Indicator color");
-                        ImGui::SameLine(ImGui::GetWindowWidth() / 2 - 20);
-                        ImAdd::ColorEdit4("##AdIndicatorColor", (float*)&globals::features::AdIndicatorColor);
-
-                        ImGui::Dummy(ImVec2(0.0f, 10.0f));
-                        SectionHeader("Swap Indicators");
-
-                        ImAdd::CheckBox("Attribute swap indicator", &globals::features::attributeSwapIndicator);
-                        ImGui::Dummy(ImVec2(0.0f, 4.0f));
-                        ImAdd::Text(ImVec4(0.65f, 0.65f, 0.65f, 1.0f), "Indicator color");
-                        ImGui::SameLine(ImGui::GetWindowWidth() / 2 - 20);
-                        ImAdd::ColorEdit4("##AttrSwapIndicatorColor", (float*)&globals::features::attributeSwapIndicatorColor);
-
-                        ImGui::Dummy(ImVec2(0.0f, 10.0f));
-
-                        ImAdd::CheckBox("Spear swap indicator", &globals::features::spearSwapIndicator);
-                        ImGui::Dummy(ImVec2(0.0f, 4.0f));
-                        ImAdd::Text(ImVec4(0.65f, 0.65f, 0.65f, 1.0f), "Indicator color");
-                        ImGui::SameLine(ImGui::GetWindowWidth() / 2 - 20);
-                        ImAdd::ColorEdit4("##SpearSwapIndicatorColor", (float*)&globals::features::spearSwapIndicatorColor);
-
-                        ImAdd::EndChild();
-                    }
-
-                    // ── TAB 2: MISC ──────────────────────────────────────────
-                    else if (active_tab == 2) {
-                        ImAdd::BeginChild("Misc", ImVec2(content_inner_w, content_inner_h - 2.0f));
-
-                        SectionHeader("General");
-
-                        std::vector<const char*> stuff = { "FPS", "Date" };
-                        if (globals::misc::watermarkstuff == nullptr) {
-                            globals::misc::watermarkstuff = new std::vector<int>(stuff.size(), 0);
+                    auto render_tab = [&](int tab) {
+                        const ImVec2 tab_size = ImVec2(content_inner_w, content_inner_h - 2.0f);
+                        if (tab == 0) {
+                            ImAdd::BeginChild("Macros", tab_size);
+                            SectionHeader("Double Click");
+                            ImAdd::CheckBox("Auto Double Clicker", &globals::features::ADclick);
+                            ImGui::Dummy(ImVec2(0.0f, 2.0f));
+                            ImAdd::CheckBox("Toggle Key", &globals::features::ADKeyToggle);
+                            ImGui::SameLine(ImGui::GetWindowWidth() / 2 - 50);
+                            Bind(&globals::features::ADkeyToggleBind, ImVec2(44, 14));
+                            ImAdd::CheckBox("Double click on key", &globals::features::ADclickOnKey);
+                            ImGui::SameLine(ImGui::GetWindowWidth() / 2 - 50);
+                            Bind(&globals::features::ADclickBind, ImVec2(44, 14));
+                            ImGui::Dummy(ImVec2(0.0f, 6.0f));
+                            ImAdd::SliderInt("Click Delay (ms)", &globals::features::ADclickDelay, 0, 100);
+                            ImGui::Dummy(ImVec2(0.0f, 10.0f));
+                            SectionHeader("Inventory Slot Swap");
+                            ImAdd::CheckBox("Swap after clicks", &globals::features::swapOnClick);
+                            ImGui::SameLine(ImGui::GetWindowWidth() / 2 - 50);
+                            Bind(&globals::features::SwapOnTargetSlot, ImVec2(44, 14));
+                            ImAdd::CheckBox("Swap between clicks", &globals::features::swapBetweenClicks);
+                            ImGui::SameLine(ImGui::GetWindowWidth() / 2 - 50);
+                            Bind(&globals::features::SwapBetweenTargetSlot, ImVec2(44, 14));
+                            ImGui::Dummy(ImVec2(0.0f, 6.0f));
+                            ImAdd::SliderInt("Swap delay (ms)", &globals::features::swapDelay, 0, 100);
+                            ImGui::Dummy(ImVec2(0.0f, 10.0f));
+                            SectionHeader("Attribute Swap");
+                            ImAdd::CheckBox("Attribute swap", &globals::features::attributeSwap);
+                            ImGui::SameLine(ImGui::GetWindowWidth() / 2 - 50);
+                            Bind(&globals::features::attributeSwapKey, ImVec2(44, 14));
+                            ImAdd::Text(ImVec4(0.65f, 0.65f, 0.65f, 1.0f), "Slot to swap on");
+                            ImGui::SameLine(ImGui::GetWindowWidth() / 2 - 50);
+                            Bind(&globals::features::attributeSwapTargetSlot, ImVec2(44, 14));
+                            ImGui::Dummy(ImVec2(0.0f, 6.0f));
+                            ImAdd::SliderInt("Attribute swap delay (ms)", &globals::features::attributeSwapDelay, 0, 100);
+                            ImGui::Dummy(ImVec2(0.0f, 10.0f));
+                            SectionHeader("Spear Swap");
+                            ImAdd::CheckBox("Spear swap", &globals::features::spearSwap);
+                            ImGui::SameLine(ImGui::GetWindowWidth() / 2 - 50);
+                            Bind(&globals::features::spearSwapKey, ImVec2(44, 14));
+                            ImAdd::Text(ImVec4(0.65f, 0.65f, 0.65f, 1.0f), "Spear slot");
+                            ImGui::SameLine(ImGui::GetWindowWidth() / 2 - 50);
+                            Bind(&globals::features::spearSwapTargetSlot, ImVec2(44, 14));
+                            ImAdd::EndChild();
                         }
-
-                        ImAdd::CheckBox("Streamproof", &globals::misc::streamproof);
-                        ImGui::Dummy(ImVec2(0.0f, 2.0f));
-                        ImAdd::Text(ImVec4(0.45f, 0.45f, 0.45f, 1.0f), "# Hides gui from Discord / OBS / any recording app");
-
-                        ImGui::Dummy(ImVec2(0.0f, 10.0f));
-                        SectionHeader("Safety");
-
-                        ImAdd::CheckBox("Panic button", &globals::misc::panicKey);
-                        ImGui::SameLine(ImGui::GetWindowWidth() / 2 - 50);
-                        Bind(&globals::misc::panicKeyBind, ImVec2(44, 14));
-                        ImGui::Dummy(ImVec2(0.0f, 2.0f));
-                        ImAdd::Text(ImVec4(0.45f, 0.45f, 0.45f, 1.0f), "# Instantly exits on key press");
-
-                        ImGui::Dummy(ImVec2(0.0f, 16.0f));
-
-                        // Exit button full width
-                        if (ImAdd::Button("Exit", ImVec2(ImGui::GetContentRegionAvail().x, 32))) {
-                            ExitProcess(0);
+                        else if (tab == 1) {
+                            ImAdd::BeginChild("Indicators", tab_size);
+                            SectionHeader("Click Indicators");
+                            ImAdd::CheckBox("Auto Dclick Indicator", &globals::features::AdIndicator);
+                            ImGui::Dummy(ImVec2(0.0f, 4.0f));
+                            ImAdd::Text(ImVec4(0.65f, 0.65f, 0.65f, 1.0f), "Indicator color");
+                            ImGui::SameLine(ImGui::GetWindowWidth() / 2 - 20);
+                            ImAdd::ColorEdit4("##AdIndicatorColor", (float*)&globals::features::AdIndicatorColor);
+                            ImGui::Dummy(ImVec2(0.0f, 10.0f));
+                            SectionHeader("Swap Indicators");
+                            ImAdd::CheckBox("Attribute swap indicator", &globals::features::attributeSwapIndicator);
+                            ImGui::Dummy(ImVec2(0.0f, 4.0f));
+                            ImAdd::Text(ImVec4(0.65f, 0.65f, 0.65f, 1.0f), "Indicator color");
+                            ImGui::SameLine(ImGui::GetWindowWidth() / 2 - 20);
+                            ImAdd::ColorEdit4("##AttrSwapIndicatorColor", (float*)&globals::features::attributeSwapIndicatorColor);
+                            ImGui::Dummy(ImVec2(0.0f, 10.0f));
+                            ImAdd::CheckBox("Spear swap indicator", &globals::features::spearSwapIndicator);
+                            ImGui::Dummy(ImVec2(0.0f, 4.0f));
+                            ImAdd::Text(ImVec4(0.65f, 0.65f, 0.65f, 1.0f), "Indicator color");
+                            ImGui::SameLine(ImGui::GetWindowWidth() / 2 - 20);
+                            ImAdd::ColorEdit4("##SpearSwapIndicatorColor", (float*)&globals::features::spearSwapIndicatorColor);
+                            ImAdd::EndChild();
                         }
+                        else if (tab == 2) {
+                            ImAdd::BeginChild("Misc", tab_size);
+                            SectionHeader("General");
+                            std::vector<const char*> stuff = { "FPS", "Date" };
+                            if (globals::misc::watermarkstuff == nullptr)
+                                globals::misc::watermarkstuff = new std::vector<int>(stuff.size(), 0);
+                            ImAdd::CheckBox("Streamproof", &globals::misc::streamproof);
+                            ImGui::Dummy(ImVec2(0.0f, 2.0f));
+                            ImAdd::Text(ImVec4(0.45f, 0.45f, 0.45f, 1.0f), "# Hides gui from Discord / OBS / any recording app");
+                            ImGui::Dummy(ImVec2(0.0f, 10.0f));
+                            SectionHeader("Safety");
+                            ImAdd::CheckBox("Panic button", &globals::misc::panicKey);
+                            ImGui::SameLine(ImGui::GetWindowWidth() / 2 - 50);
+                            Bind(&globals::misc::panicKeyBind, ImVec2(44, 14));
+                            ImGui::Dummy(ImVec2(0.0f, 2.0f));
+                            ImAdd::Text(ImVec4(0.45f, 0.45f, 0.45f, 1.0f), "# Instantly exits on key press");
+                            ImGui::Dummy(ImVec2(0.0f, 16.0f));
+                            if (ImAdd::Button("Exit", ImVec2(ImGui::GetContentRegionAvail().x, 32)))
+                                ExitProcess(0);
+                            ImAdd::EndChild();
+                        }
+                        else if (tab == 3) {
+                            g_config_system.render_config_ui(content_inner_w, content_inner_h - 2.0f);
+                        }
+                        };
 
-                        ImAdd::EndChild();
+                    float t = 1.0f - (1.0f - anim_t) * (1.0f - anim_t) * (1.0f - anim_t);
+                    float slide_active = content_inner_h * anim_dir * (1.0f - t);
+                    float slide_prev = content_inner_h * anim_dir * (-t);
+
+                    ImVec2 clip_origin = ImGui::GetCursorScreenPos();
+                    ImGui::GetWindowDrawList()->PushClipRect(clip_origin, clip_origin + ImVec2(content_inner_w, content_inner_h), true);
+
+                    if (anim_t < 1.0f) {
+                        ImGui::SetCursorScreenPos(clip_origin + ImVec2(0.0f, slide_prev));
+                        ImGui::BeginDisabled(true);
+                        ImGui::BeginGroup();
+                        render_tab(prev_tab);
+                        ImGui::EndGroup();
+                        ImGui::EndDisabled();
                     }
 
-                    // ── TAB 3: CONFIG ─────────────────────────────────────────
-                    else if (active_tab == 3) {
-                        g_config_system.render_config_ui(
-                            content_inner_w,
-                            content_inner_h - 2.0f
-                        );
-                    }
+                    ImGui::SetCursorScreenPos(clip_origin + ImVec2(0.0f, slide_active));
+                    ImGui::BeginGroup();
+                    render_tab(active_tab);
+                    ImGui::EndGroup();
+
+                    ImGui::GetWindowDrawList()->PopClipRect();
 
                     ImGui::EndChild(); // ##ContentPanel
                     ImGui::End();
@@ -870,18 +872,29 @@ namespace overlay {
             }
             else {
                 g_pSwapChain->Present(0, 0);
-                // === FRAME RATE LIMITER (saves massive FPS) ===
+                // === FRAME RATE LIMITER (точный, winmm) ===
                 static auto lastFrameTime = std::chrono::high_resolution_clock::now();
                 auto nowTime = std::chrono::high_resolution_clock::now();
                 float elapsed = std::chrono::duration<float>(nowTime - lastFrameTime).count();
-                float targetFPS = overlay::visible ? 90.0f : 30.0f;
+                float targetFPS = overlay::visible ? 120.0f : 30.0f;
                 float targetFrameTime = 1.0f / targetFPS;
                 if (elapsed < targetFrameTime) {
-                    std::this_thread::sleep_for(std::chrono::duration<float>(targetFrameTime - elapsed));
+                    float remaining = targetFrameTime - elapsed;
+                    // sleep_for точен только до ~15ms на Windows без timeBeginPeriod.
+                    // Спим бо́льшую часть через OS, остаток дожигаем busy-wait'ом.
+                    if (remaining > 0.002f)
+                        std::this_thread::sleep_for(std::chrono::duration<float>(remaining - 0.001f));
+                    // Busy-wait на последней миллисекунде для точности
+                    while (std::chrono::duration<float>(
+                        std::chrono::high_resolution_clock::now() - lastFrameTime).count()
+                        < targetFrameTime) {
+                        _mm_pause(); // не греем ядро впустую
+                    }
                 }
                 lastFrameTime = std::chrono::high_resolution_clock::now();
             }
         }
+        timeEndPeriod(1);
         ImGui_ImplDX11_Shutdown();
         ImGui_ImplWin32_Shutdown();
         ImGui::DestroyContext();
