@@ -7,6 +7,7 @@
 - [Features](https://github.com/akvarium11/AkvariumMacros#%EF%B8%8Ffeatures)
 - [How to use](https://github.com/akvarium11/AkvariumMacros#-%EF%B8%8Fhow-to-use)
 - [Would I get banned](https://github.com/akvarium11/AkvariumMacros#-would-i-get-banned)
+- [Menu screenshots](https://github.com/akvarium11/AkvariumMacros#-menu-screenshots)
 - [License](https://github.com/akvarium11/AkvariumMacros#-license)
 
 ## <a id="about-the-project"></a>📌About the Project
@@ -18,26 +19,35 @@
 
 ## <a id="features"></a>⌨️Features 
 
-![image](https://files.catbox.moe/fim74l.png)
+### ✅ Already Implemented
+- [x] **Double Click** - Performs an additional click when pressing LMB
+- [x] **Indicator** - Indicator under the crosshair
+- [x] **Swap after Click** - Automatically swaps slot after double click (web/lava stun)
+- [x] **Swap between Clicks** - Swaps slot between clicks (stun slam)
+- [x] **Spear Swap** - Automatic spear swap
+- [x] **Streamproof** - Hides GUI when streaming or recording
+- [x] **Panic Button** - Instant exit button (works even outside Minecraft)
 
-| # | Features               | Purpose       | 
-|---|------------------------------------|----------------|
-| 1 | Double click                | Does additional click on left mouse button press. Allows for easier stuns.| 
-| 1.1 | Double click indicator                | A little indicator under the crosshair that shows whether double click is enabled.| 
-| 2 | Swap after click     | Swaps to desired inventory slot after double clicking. Does web stun / lava stun for you. | 
-| 3 | Swap between click           | Swaps to desired inventory slot in between clicks allowing for an easy stun slam.     | 
-| 4 | Spear swap            | Does spear swap tech for you.    | 
-| 5 | Streamproof            | Hides gui when screen sharing (you can still see it)    | 
-| 6 | Panic button            | Exits app on key press (even outside of Minecraft).   | 
+### ⏳ Planned / To Be Added
+- [ ] **GUI Redesign** - Modern and stylish GUI with animations
+- [ ] **Fullscreen Support** - Fullscreen mode support
+- [ ] **Improved Bypass Algorithm** - Enhanced delay randomization and anti-detection
 
 ## <a id="how-to-use"></a> ▶️How to Use
 
-Just launch the exe with Minecraft opened and press *INSERT*.
+Just launch the exe with Minecraft opened and press *INSERT*. 
+
+> [!IMPORTANT]  
+> Minecraft needs to be in windowed mode.
 
 ## <a id="ban"></a> ❓Would i get banned?
 
 <b>Quick answer - No </b>  
 AkvariumMacros has anti pattern detection algorithm which randomizes delay between clicks every time macro activates, although you can still get banned if your buns at hiding it.
+
+## <a id="menu-screenshots"></a>🖼️Menu screenshots
+
+![image](https://files.catbox.moe/mv65se.jpg)
 
 ## <a id="license"></a> 📄License
 
@@ -50,6 +60,7 @@ The project is distributed under the [MIT license](https://github.com/akvarium11
 - [Возможности](https://github.com/akvarium11/AkvariumMacros#features-rus)
 - [Как пользоваться](https://github.com/akvarium11/AkvariumMacros#how-to-use-rus)
 - [Можно ли словить бан](https://github.com/akvarium11/AkvariumMacros#would-i-get-banned-rus)
+- [Скриншоты меню](https://github.com/akvarium11/AkvariumMacros#-menu-screenshots-rus)
 - [Лицензия](https://github.com/akvarium11/AkvariumMacros#license-rus)
 
 ## <a id="about-the-project-rus"></a>📌О проекте
@@ -61,26 +72,36 @@ The project is distributed under the [MIT license](https://github.com/akvarium11
 
 ## <a id="features-rus"></a>⌨️Возможности 
 
-![image](https://files.catbox.moe/fim74l.png)
+### ✅ Уже реализовано
+- [x] **Double click** - Делает дополнительный клик при нажатии ЛКМ
+- [x] **Indicator** - Индикатор под прицелом
+- [x] **Swap after click** - Свап после двойного клика (web/lava-stun)
+- [x] **Swap between click** - Свап между кликами (стан-слэм)
+- [x] **Spear swap** - Автоматический спир-свап
+- [x] **Streamproof** - Скрытие GUI при стриме/записи
+- [x] **Panic button** - Кнопка мгновенного выхода
 
-| # | Функция                    | Для чего |
-|---|----------------------------|----------|
-| 1 | Двойной клик  (Auto double clicker)             | Делает дополнительный клик при нажатии ЛКМ. Значительно проще делать станы. |
-| 2 | Свап после клика (Swap after clicks)          | После двойного клика сразу меняет на нужный слот инвентаря. Делает за тебя веб-стан / лава-стан. |
-| 3 | Свап между кликами (Swap between clicks)        | Меняет слот между кликами — удобно делать стан-слэм. |
-| 4 | Свап копья (Spear swap)               | Автоматически выполняет технику спир-свапа. |
-| 5 | Антизапись (streamproof)                 | Скрывает меню при стриме в дс или записи экрана (ты его всё равно видишь). |
-| 6 | Кнопка паники (panic button)             | Моментально закрывает программу по нажатию клавиши (работает даже вне Minecraft). |
+### ⏳ В планах / Будет добавлено
+- [ ] **GUI redisign** - Сделать крутую гуишку с анимациями
+- [ ] **Fullscreen support** - Поддержка режима полного экрана
+- [ ] **Improved bypass algorith** - Улучшенная рандомизация задержек
 
 ## <a id="how-to-use-rus"></a> ▶️Как пользоваться
 
 Просто запускаешь exe при открытом Minecraft и жмёшь **INSERT**.
+
+> [!IMPORTANT]  
+> Майнкрафт должен быть в режиме окна.
 
 ## <a id="would-i-get-banned-rus"></a> ❓Можно ли словить бан?
 
 **Коротко — нет.**  
 
 AkvariumMacros имеет алгоритм избегающий детекта паттернов, который каждый раз рандомизирует задержки между кликами. (бан всё равно можно получить если не умеешь настраивать)
+
+## <a id="menu-screenshots-rus"></a>🖼️Скриншоты меню
+
+![image](https://files.catbox.moe/mv65se.jpg)
 
 ## <a id="license-rus"></a> 📄Лицензия
 
