@@ -27,9 +27,9 @@
 - [x] **Spear Swap** - Automatic spear swap
 - [x] **Streamproof** - Hides GUI when streaming or recording
 - [x] **Panic Button** - Instant exit button (works even outside Minecraft)
+- [x] **Gui animations** - Animated tab switching
 
 ### ⏳ Planned / To Be Added
-- [ ] **GUI Redesign** - Modern and stylish GUI with animations
 - [ ] **Fullscreen Support** - Fullscreen mode support
 - [ ] **Improved Bypass Algorithm** - Enhanced delay randomization and anti-detection
 
@@ -80,9 +80,9 @@ The project is distributed under the [MIT license](https://github.com/akvarium11
 - [x] **Spear swap** - Автоматический спир-свап
 - [x] **Streamproof** - Скрытие GUI при стриме/записи
 - [x] **Panic button** - Кнопка мгновенного выхода
+- [x] **Gui animations** - Анимации при переключении вкладок
 
 ### ⏳ В планах / Будет добавлено
-- [ ] **GUI redisign** - Сделать крутую гуишку с анимациями
 - [ ] **Fullscreen support** - Поддержка режима полного экрана
 - [ ] **Improved bypass algorith** - Улучшенная рандомизация задержек
 
