@@ -31,6 +31,7 @@
 
 ### ⏳ Planned / To Be Added
 - [ ] **Fullscreen Support** - Fullscreen mode support
+- [ ] **Crystal** - Macros for end crystals / anchors
 - [ ] **Improved Bypass Algorithm** - Enhanced delay randomization and anti-detection
 
 ## <a id="how-to-use"></a> ▶️How to Use
@@ -84,6 +85,7 @@ The project is distributed under the [MIT license](https://github.com/akvarium11
 
 ### ⏳ В планах / Будет добавлено
 - [ ] **Fullscreen support** - Поддержка режима полного экрана
+- [ ] **Crystal** - Макросы для кристалов / якорей
 - [ ] **Improved bypass algorith** - Улучшенная рандомизация задержек
 
 ## <a id="how-to-use-rus"></a> ▶️Как пользоваться
