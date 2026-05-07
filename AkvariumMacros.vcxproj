@@ -154,7 +154,9 @@
     <ClCompile Include="drawing\overlay\keybind\keybind.cpp" />
     <ClCompile Include="drawing\overlay\overlay.cpp" />
     <ClCompile Include="entry.cpp" />
+    <ClCompile Include="features\Crystal.cpp" />
     <ClCompile Include="features\DoubleClick.cpp" />
+    <ClCompile Include="features\Misc.cpp" />
     <ClCompile Include="util\classes\startup\classes.cpp" />
     <ClCompile Include="util\config\configsystem.cpp" />
   </ItemGroup>

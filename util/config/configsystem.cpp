@@ -71,6 +71,12 @@ bool ConfigSystem::save_config(const std::string& name) {
     feat["spearSwapIndicatorColor"][2] = globals::features::spearSwapIndicatorColor.z;
     feat["spearSwapIndicatorColor"][3] = globals::features::spearSwapIndicatorColor.w;
 
+    feat["anchorMacroIndicator"] = globals::features::anchorMacroIndicator;
+    feat["anchorMacroIndicatorColor"][0] = globals::features::anchorMacroIndicatorColor.x;
+    feat["anchorMacroIndicatorColor"][1] = globals::features::anchorMacroIndicatorColor.y;
+    feat["anchorMacroIndicatorColor"][2] = globals::features::anchorMacroIndicatorColor.z;
+    feat["anchorMacroIndicatorColor"][3] = globals::features::anchorMacroIndicatorColor.w;
+
     // Swap after click
     feat["swapOnClick"] = globals::features::swapOnClick;
     feat["swapDelay"] = globals::features::swapDelay;
@@ -101,6 +107,12 @@ bool ConfigSystem::save_config(const std::string& name) {
     feat["keybinds"]["spearSwapTargetSlot"]["type"] = static_cast<int>(globals::features::spearSwapTargetSlot.type);
     feat["keybinds"]["spearSwapKey"]["key"] = globals::features::spearSwapKey.key;
     feat["keybinds"]["spearSwapKey"]["type"] = static_cast<int>(globals::features::spearSwapKey.type);
+
+    // Anchor macro
+    feat["anchorMacro"] = globals::features::anchorMacro;
+    feat["anchorMacroDelay"] = globals::features::anchorMacroDelay;
+    feat["keybinds"]["anchorMacroKey"]["key"] = globals::features::anchorMacroKey.key;
+    feat["keybinds"]["anchorMacroKey"]["type"] = static_cast<int>(globals::features::anchorMacroKey.type);
 
     // === MISC ===
     std::cout << "[MISC] Saving misc..." << "\n";
@@ -186,26 +198,33 @@ bool ConfigSystem::load_config(const std::string& name) {
                     load_keybind(kb, "attributeSwapKey", globals::features::attributeSwapKey);
                     load_keybind(kb, "spearSwapTargetSlot", globals::features::spearSwapTargetSlot);
                     load_keybind(kb, "spearSwapKey", globals::features::spearSwapKey);
+                    load_keybind(kb, "anchorMacroKey", globals::features::anchorMacroKey);
                 }
 
                 // Indicators
                 if (feat.contains("AdIndicator"))            globals::features::AdIndicator = feat["AdIndicator"];
                 if (feat.contains("attributeSwapIndicator")) globals::features::attributeSwapIndicator = feat["attributeSwapIndicator"];
                 if (feat.contains("spearSwapIndicator"))     globals::features::spearSwapIndicator = feat["spearSwapIndicator"];
+                if (feat.contains("anchorMacroIndicator"))   globals::features::anchorMacroIndicator = feat["anchorMacroIndicator"];
                 load_color(feat, "AdIndicatorColor", globals::features::AdIndicatorColor);
                 load_color(feat, "attributeSwapIndicatorColor", globals::features::attributeSwapIndicatorColor);
                 load_color(feat, "spearSwapIndicatorColor", globals::features::spearSwapIndicatorColor);
+                load_color(feat, "anchorMacroIndicatorColor", globals::features::anchorMacroIndicatorColor);
 
                 // Swaps
-                if (feat.contains("swapOnClick"))      globals::features::swapOnClick = feat["swapOnClick"].get<bool>();
-                if (feat.contains("swapBeforeClick"))  globals::features::swapBeforeClick = feat["swapBeforeClick"].get<bool>();
-                if (feat.contains("swapBetweenClicks"))globals::features::swapBetweenClicks = feat["swapBetweenClicks"].get<bool>();
-                if (feat.contains("swapDelay"))        globals::features::swapDelay = feat["swapDelay"].get<int>();
+                if (feat.contains("swapOnClick"))       globals::features::swapOnClick = feat["swapOnClick"].get<bool>();
+                if (feat.contains("swapBeforeClick"))   globals::features::swapBeforeClick = feat["swapBeforeClick"].get<bool>();
+                if (feat.contains("swapBetweenClicks")) globals::features::swapBetweenClicks = feat["swapBetweenClicks"].get<bool>();
+                if (feat.contains("swapDelay"))         globals::features::swapDelay = feat["swapDelay"].get<int>();
 
                 if (feat.contains("attributeSwap"))      globals::features::attributeSwap = feat["attributeSwap"].get<bool>();
                 if (feat.contains("attributeSwapDelay")) globals::features::attributeSwapDelay = feat["attributeSwapDelay"].get<int>();
 
                 if (feat.contains("spearSwap")) globals::features::spearSwap = feat["spearSwap"].get<bool>();
+
+                // Anchor macro
+                if (feat.contains("anchorMacro"))      globals::features::anchorMacro = feat["anchorMacro"].get<bool>();
+                if (feat.contains("anchorMacroDelay")) globals::features::anchorMacroDelay = feat["anchorMacroDelay"].get<int>();
 
                 std::cout << "[FEATURES] Features loaded successfully" << "\n";
             }

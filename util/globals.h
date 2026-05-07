@@ -22,6 +22,9 @@ namespace globals
 
         inline bool spearSwapIndicator = false;
         inline ImVec4 spearSwapIndicatorColor = { 1.0, 1.0, 1.0, 1.0 };
+
+        inline bool anchorMacroIndicator = false;
+        inline ImVec4 anchorMacroIndicatorColor = ImVec4(1.0f, 1.0f, 1.0f, 1.0f);
         // Swap after click
         inline bool swapOnClick = false;
         inline keybind SwapOnTargetSlot("SwapOnTargetSlot");
@@ -44,6 +47,7 @@ namespace globals
         // Anchor macro
         inline bool anchorMacro = false;
         inline keybind anchorMacroKey("anchorMacroKey");
+        inline int anchorMacroDelay = 30;
     }
 
     namespace misc {

@@ -541,6 +541,26 @@ namespace overlay {
                         ImGui::GetForegroundDrawList()->AddText(pos, col, text.c_str());
                         slot++;
                     }
+
+                    // --- Anchor Macro Indicator ---
+                    if (globals::features::anchorMacroIndicator) {
+                        bool isDown = globals::features::anchorMacroKey.key != 0 &&
+                            (GetAsyncKeyState(globals::features::anchorMacroKey.key) & 0x8000) != 0;
+                        std::string keyName = globals::features::anchorMacroKey.key != 0
+                            ? globals::features::anchorMacroKey.get_key_name()
+                            : "None";
+                        std::string text = "Anchor: " + keyName;
+                        ImVec4 color = isDown
+                            ? globals::features::anchorMacroIndicatorColor
+                            : ImVec4(1.0f, 1.0f, 1.0f, 1.0f);
+                        ImVec2 textSize = ImGui::CalcTextSize(text.c_str());
+                        ImVec2 pos((screen.x - textSize.x) / 2.0f, baseY + slot * lineH);
+                        ImU32  col = ImGui::ColorConvertFloat4ToU32(color);
+                        ImGui::GetForegroundDrawList()->AddText(
+                            ImVec2(pos.x + 1.5f, pos.y + 1.5f), IM_COL32(0, 0, 0, 220), text.c_str());
+                        ImGui::GetForegroundDrawList()->AddText(pos, col, text.c_str());
+                        slot++;
+                    }
                 }
 
                 if (overlay::visible) {
@@ -744,8 +764,8 @@ namespace overlay {
                                 macro_sub_tab = new_tab;
                                 };
 
-                            const char* sub_labels[] = { "Double Click", "Crystal" };
-                            const int   sub_count = 2;
+                            const char* sub_labels[] = { "Double Click", "Techs", "Crystal" };
+                            const int   sub_count = 3;
 
                             // Sub-tab bar
                             const float sub_btn_h = 24.0f;
@@ -810,6 +830,12 @@ namespace overlay {
                                     ImGui::Dummy(ImVec2(0.0f, 6.0f));
                                     ImAdd::SliderInt("Swap delay (ms)", &globals::features::swapDelay, 0, 100);
                                     ImGui::Dummy(ImVec2(0.0f, 10.0f));
+
+                                    ImAdd::EndChild();
+                                }
+                                else if (s == 1) {
+                                    ImAdd::BeginChild("Techs", sub_tab_size);
+
                                     SectionHeader("Attribute Swap");
                                     ImAdd::CheckBox("Attribute swap", &globals::features::attributeSwap);
                                     ImGui::SameLine(ImGui::GetWindowWidth() / 2 - 30);
@@ -820,20 +846,29 @@ namespace overlay {
                                     ImGui::Dummy(ImVec2(0.0f, 6.0f));
                                     ImAdd::SliderInt("Attribute swap delay (ms)", &globals::features::attributeSwapDelay, 0, 100);
                                     ImGui::Dummy(ImVec2(0.0f, 10.0f));
+
                                     SectionHeader("Spear Swap");
                                     ImAdd::CheckBox("Spear swap", &globals::features::spearSwap);
                                     ImGui::SameLine(ImGui::GetWindowWidth() / 2 - 30);
                                     Bind(&globals::features::spearSwapKey, ImVec2(44, 14));
-                                    ImAdd::Text(ImVec4(0.65f, 0.65f, 0.65f, 1.0f), "Spear slot");
+                                    ImAdd::Text(ImVec4(1.0f, 1.0f, 1.0f, 1.0f), "Spear slot");
                                     ImGui::SameLine(ImGui::GetWindowWidth() / 2 - 30);
                                     Bind(&globals::features::spearSwapTargetSlot, ImVec2(44, 14));
-                                    ImGui::Dummy(ImVec2(0.0f, 16.0f)); // bottom padding so last item is fully visible
+                                    ImGui::Dummy(ImVec2(0.0f, 16.0f));
+
                                     ImAdd::EndChild();
                                 }
-                                else if (s == 1) {
+                                else if (s == 2) {
                                     ImAdd::BeginChild("Crystal", sub_tab_size);
 
+                                    SectionHeader("Anchor macro");
+                                    ImAdd::CheckBox("Anchor macro", &globals::features::anchorMacro);
+                                    ImGui::SameLine(ImGui::GetWindowWidth() / 2 - 30);
+                                    Bind(&globals::features::anchorMacroKey, ImVec2(44, 14));
 
+                                    ImGui::Dummy(ImVec2(0.0f, 6.0f));
+                                    ImAdd::SliderInt("Anchor macro delay (ms)", &globals::features::anchorMacroDelay, 0, 100);
+                                    ImGui::Dummy(ImVec2(0.0f, 16.0f));
 
                                     ImAdd::EndChild();
                                 }
@@ -884,6 +919,13 @@ namespace overlay {
                             ImAdd::Text(ImVec4(0.65f, 0.65f, 0.65f, 1.0f), "Indicator color");
                             ImGui::SameLine(ImGui::GetWindowWidth() / 2 - 20);
                             ImAdd::ColorEdit4("##SpearSwapIndicatorColor", (float*)&globals::features::spearSwapIndicatorColor);
+                            ImGui::Dummy(ImVec2(0.0f, 10.0f));
+                            SectionHeader("Crystal Indicators");
+                            ImAdd::CheckBox("Anchor macro indicator", &globals::features::anchorMacroIndicator);
+                            ImGui::Dummy(ImVec2(0.0f, 4.0f));
+                            ImAdd::Text(ImVec4(0.65f, 0.65f, 0.65f, 1.0f), "Indicator color");
+                            ImGui::SameLine(ImGui::GetWindowWidth() / 2 - 20);
+                            ImAdd::ColorEdit4("##AnchorMacroIndicatorColor", (float*)&globals::features::anchorMacroIndicatorColor);
                             ImAdd::EndChild();
                         }
                         else if (tab == 2) {
