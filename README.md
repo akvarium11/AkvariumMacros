@@ -28,10 +28,10 @@
 - [x] **Streamproof** - Hides GUI when streaming or recording
 - [x] **Panic Button** - Instant exit button (works even outside Minecraft)
 - [x] **Gui animations** - Animated tab switching
+- [x] **Crystal** - Macros for end crystals / anchors
 
 ### ⏳ Planned / To Be Added
 - [ ] **Fullscreen Support** - Fullscreen mode support
-- [ ] **Crystal** - Macros for end crystals / anchors
 - [ ] **Improved Bypass Algorithm** - Enhanced delay randomization and anti-detection
 
 ## <a id="how-to-use"></a> ▶️How to Use
@@ -48,7 +48,7 @@ AkvariumMacros has anti pattern detection algorithm which randomizes delay betwe
 
 ## <a id="menu-screenshots"></a>🖼️Menu screenshots
 
-![image](https://files.catbox.moe/mv65se.jpg)
+![image](https://files.catbox.moe/zs38wa.jpg)
 
 ## <a id="license"></a> 📄License
 
@@ -82,10 +82,10 @@ The project is distributed under the [MIT license](https://github.com/akvarium11
 - [x] **Streamproof** - Скрытие GUI при стриме/записи
 - [x] **Panic button** - Кнопка мгновенного выхода
 - [x] **Gui animations** - Анимации при переключении вкладок
+- [x] **Crystal** - Макросы для кристалов / якорей
 
 ### ⏳ В планах / Будет добавлено
 - [ ] **Fullscreen support** - Поддержка режима полного экрана
-- [ ] **Crystal** - Макросы для кристалов / якорей
 - [ ] **Improved bypass algorith** - Улучшенная рандомизация задержек
 
 ## <a id="how-to-use-rus"></a> ▶️Как пользоваться
@@ -103,7 +103,7 @@ AkvariumMacros имеет алгоритм избегающий детекта �
 
 ## <a id="menu-screenshots-rus"></a>🖼️Скриншоты меню
 
-![image](https://files.catbox.moe/mv65se.jpg)
+![image](https://files.catbox.moe/zs38wa.jpg)
 
 ## <a id="license-rus"></a> 📄Лицензия
 
