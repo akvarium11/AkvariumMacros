@@ -41,6 +41,9 @@ namespace globals
         inline bool spearSwap = false;
         inline keybind spearSwapTargetSlot("spearSwapTargetSlot");
         inline keybind spearSwapKey("spearSwapKey");
+        // Anchor macro
+        inline bool anchorMacro = false;
+        inline keybind anchorMacroKey("anchorMacroKey");
     }
 
     namespace misc {
