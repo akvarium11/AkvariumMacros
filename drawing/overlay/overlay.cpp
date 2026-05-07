@@ -725,47 +725,141 @@ namespace overlay {
                     auto render_tab = [&](int tab) {
                         const ImVec2 tab_size = ImVec2(content_inner_w, content_inner_h - 2.0f);
                         if (tab == 0) {
-                            ImAdd::BeginChild("Macros", tab_size);
-                            SectionHeader("Double Click");
-                            ImAdd::CheckBox("Auto Double Clicker", &globals::features::ADclick);
-                            ImGui::Dummy(ImVec2(0.0f, 2.0f));
-                            ImAdd::CheckBox("Toggle Key", &globals::features::ADKeyToggle);
-                            ImGui::SameLine(ImGui::GetWindowWidth() / 2 - 30);
-                            Bind(&globals::features::ADkeyToggleBind, ImVec2(44, 14));
-                            ImAdd::CheckBox("Double click on key", &globals::features::ADclickOnKey);
-                            ImGui::SameLine(ImGui::GetWindowWidth() / 2 - 30);
-                            Bind(&globals::features::ADclickBind, ImVec2(44, 14));
-                            ImGui::Dummy(ImVec2(0.0f, 6.0f));
-                            ImAdd::SliderInt("Click Delay (ms)", &globals::features::ADclickDelay, 0, 100);
-                            ImGui::Dummy(ImVec2(0.0f, 10.0f));
-                            SectionHeader("Inventory Slot Swap");
-                            ImAdd::CheckBox("Swap after clicks", &globals::features::swapOnClick);
-                            ImGui::SameLine(ImGui::GetWindowWidth() / 2 - 30);
-                            Bind(&globals::features::SwapOnTargetSlot, ImVec2(44, 14));
-                            ImAdd::CheckBox("Swap between clicks", &globals::features::swapBetweenClicks);
-                            ImGui::SameLine(ImGui::GetWindowWidth() / 2 - 30);
-                            Bind(&globals::features::SwapBetweenTargetSlot, ImVec2(44, 14));
-                            ImGui::Dummy(ImVec2(0.0f, 6.0f));
-                            ImAdd::SliderInt("Swap delay (ms)", &globals::features::swapDelay, 0, 100);
-                            ImGui::Dummy(ImVec2(0.0f, 10.0f));
-                            SectionHeader("Attribute Swap");
-                            ImAdd::CheckBox("Attribute swap", &globals::features::attributeSwap);
-                            ImGui::SameLine(ImGui::GetWindowWidth() / 2 - 30);
-                            Bind(&globals::features::attributeSwapKey, ImVec2(44, 14));
-                            ImAdd::Text(ImVec4(0.65f, 0.65f, 0.65f, 1.0f), "Slot to swap on");
-                            ImGui::SameLine(ImGui::GetWindowWidth() / 2 - 30);
-                            Bind(&globals::features::attributeSwapTargetSlot, ImVec2(44, 14));
-                            ImGui::Dummy(ImVec2(0.0f, 6.0f));
-                            ImAdd::SliderInt("Attribute swap delay (ms)", &globals::features::attributeSwapDelay, 0, 100);
-                            ImGui::Dummy(ImVec2(0.0f, 10.0f));
-                            SectionHeader("Spear Swap");
-                            ImAdd::CheckBox("Spear swap", &globals::features::spearSwap);
-                            ImGui::SameLine(ImGui::GetWindowWidth() / 2 - 30);
-                            Bind(&globals::features::spearSwapKey, ImVec2(44, 14));
-                            ImAdd::Text(ImVec4(0.65f, 0.65f, 0.65f, 1.0f), "Spear slot");
-                            ImGui::SameLine(ImGui::GetWindowWidth() / 2 - 30);
-                            Bind(&globals::features::spearSwapTargetSlot, ImVec2(44, 14));
-                            ImAdd::EndChild();
+                            static int   macro_sub_tab = 0;
+                            static int   macro_prev_tab = 0;
+                            static float macro_anim_t = 1.0f;
+                            static float macro_anim_dir = 0.0f;
+                            const  float MACRO_ANIM_SPEED = 6.0f;
+
+                            if (macro_anim_t < 1.0f) {
+                                macro_anim_t += ImGui::GetIO().DeltaTime * MACRO_ANIM_SPEED;
+                                if (macro_anim_t > 1.0f) macro_anim_t = 1.0f;
+                            }
+
+                            auto switch_macro_tab = [&](int new_tab) {
+                                if (new_tab == macro_sub_tab) return;
+                                macro_prev_tab = macro_sub_tab;
+                                macro_anim_dir = (new_tab > macro_sub_tab) ? 1.0f : -1.0f;
+                                macro_anim_t = 0.0f;
+                                macro_sub_tab = new_tab;
+                                };
+
+                            const char* sub_labels[] = { "Double Click", "Crystal" };
+                            const int   sub_count = 2;
+
+                            // Sub-tab bar
+                            const float sub_btn_h = 24.0f;
+                            const float sub_bar_gap = 4.0f;
+                            {
+                                ImDrawList* sdl = ImGui::GetWindowDrawList();
+                                ImVec2 sp = ImGui::GetCursorScreenPos();
+                                const float sub_btn_w = (tab_size.x - 2.0f) / sub_count;
+
+                                for (int s = 0; s < sub_count; s++) {
+                                    ImVec2 bmin = ImVec2(sp.x + s * sub_btn_w, sp.y);
+                                    ImVec2 bmax = ImVec2(bmin.x + sub_btn_w, bmin.y + sub_btn_h);
+                                    ImGuiID sid = ImGui::GetID(sub_labels[s]);
+                                    ImRect sbb(bmin, bmax);
+                                    ImGui::ItemSize(sbb);
+                                    ImGui::ItemAdd(sbb, sid);
+                                    bool sh, sheld;
+                                    bool spressed = ImGui::ButtonBehavior(sbb, sid, &sh, &sheld);
+                                    if (spressed) switch_macro_tab(s);
+
+                                    ImU32 sbg = (macro_sub_tab == s) ? IM_COL32(38, 38, 38, 255)
+                                        : sh ? IM_COL32(26, 26, 26, 255)
+                                        : IM_COL32(18, 18, 18, 255);
+                                    sdl->AddRectFilled(bmin, bmax, sbg, 4.0f);
+                                    if (macro_sub_tab == s)
+                                        sdl->AddRectFilled(ImVec2(bmin.x + 4, bmax.y - 2), ImVec2(bmax.x - 4, bmax.y), IM_COL32(210, 210, 210, 220));
+                                    ImVec2 ts = ImGui::CalcTextSize(sub_labels[s]);
+                                    ImU32 tc = (macro_sub_tab == s) ? IM_COL32(230, 230, 230, 255)
+                                        : sh ? IM_COL32(180, 180, 180, 255)
+                                        : IM_COL32(110, 110, 110, 255);
+                                    sdl->AddText(ImVec2(bmin.x + (sub_btn_w - ts.x) * 0.5f, bmin.y + (sub_btn_h - ts.y) * 0.5f), tc, sub_labels[s]);
+                                    if (s < sub_count - 1) ImGui::SameLine(0, 0);
+                                }
+                                ImGui::Dummy(ImVec2(0.0f, sub_bar_gap));
+                            }
+
+                            const ImVec2 sub_tab_size = ImVec2(tab_size.x, tab_size.y - sub_btn_h - sub_bar_gap);
+
+                            // Render a sub-tab's content into a scrollable child
+                            auto render_macro_sub = [&](int s) {
+                                if (s == 0) {
+                                    ImAdd::BeginChild("Macros", sub_tab_size);
+                                    SectionHeader("Double Click");
+                                    ImAdd::CheckBox("Auto Double Clicker", &globals::features::ADclick);
+                                    ImGui::Dummy(ImVec2(0.0f, 2.0f));
+                                    ImAdd::CheckBox("Toggle Key", &globals::features::ADKeyToggle);
+                                    ImGui::SameLine(ImGui::GetWindowWidth() / 2 - 30);
+                                    Bind(&globals::features::ADkeyToggleBind, ImVec2(44, 14));
+                                    ImAdd::CheckBox("Double click on key", &globals::features::ADclickOnKey);
+                                    ImGui::SameLine(ImGui::GetWindowWidth() / 2 - 30);
+                                    Bind(&globals::features::ADclickBind, ImVec2(44, 14));
+                                    ImGui::Dummy(ImVec2(0.0f, 6.0f));
+                                    ImAdd::SliderInt("Click Delay (ms)", &globals::features::ADclickDelay, 0, 100);
+                                    ImGui::Dummy(ImVec2(0.0f, 10.0f));
+                                    SectionHeader("Inventory Slot Swap");
+                                    ImAdd::CheckBox("Swap after clicks", &globals::features::swapOnClick);
+                                    ImGui::SameLine(ImGui::GetWindowWidth() / 2 - 30);
+                                    Bind(&globals::features::SwapOnTargetSlot, ImVec2(44, 14));
+                                    ImAdd::CheckBox("Swap between clicks", &globals::features::swapBetweenClicks);
+                                    ImGui::SameLine(ImGui::GetWindowWidth() / 2 - 30);
+                                    Bind(&globals::features::SwapBetweenTargetSlot, ImVec2(44, 14));
+                                    ImGui::Dummy(ImVec2(0.0f, 6.0f));
+                                    ImAdd::SliderInt("Swap delay (ms)", &globals::features::swapDelay, 0, 100);
+                                    ImGui::Dummy(ImVec2(0.0f, 10.0f));
+                                    SectionHeader("Attribute Swap");
+                                    ImAdd::CheckBox("Attribute swap", &globals::features::attributeSwap);
+                                    ImGui::SameLine(ImGui::GetWindowWidth() / 2 - 30);
+                                    Bind(&globals::features::attributeSwapKey, ImVec2(44, 14));
+                                    ImAdd::Text(ImVec4(0.65f, 0.65f, 0.65f, 1.0f), "Slot to swap on");
+                                    ImGui::SameLine(ImGui::GetWindowWidth() / 2 - 30);
+                                    Bind(&globals::features::attributeSwapTargetSlot, ImVec2(44, 14));
+                                    ImGui::Dummy(ImVec2(0.0f, 6.0f));
+                                    ImAdd::SliderInt("Attribute swap delay (ms)", &globals::features::attributeSwapDelay, 0, 100);
+                                    ImGui::Dummy(ImVec2(0.0f, 10.0f));
+                                    SectionHeader("Spear Swap");
+                                    ImAdd::CheckBox("Spear swap", &globals::features::spearSwap);
+                                    ImGui::SameLine(ImGui::GetWindowWidth() / 2 - 30);
+                                    Bind(&globals::features::spearSwapKey, ImVec2(44, 14));
+                                    ImAdd::Text(ImVec4(0.65f, 0.65f, 0.65f, 1.0f), "Spear slot");
+                                    ImGui::SameLine(ImGui::GetWindowWidth() / 2 - 30);
+                                    Bind(&globals::features::spearSwapTargetSlot, ImVec2(44, 14));
+                                    ImGui::Dummy(ImVec2(0.0f, 16.0f)); // bottom padding so last item is fully visible
+                                    ImAdd::EndChild();
+                                }
+                                else if (s == 1) {
+                                    ImAdd::BeginChild("Crystal", sub_tab_size);
+
+                                    ImAdd::EndChild();
+                                }
+                                };
+
+                            // Horizontal slide animation (mirrors the vertical one used for main tabs)
+                            float mt = 1.0f - (1.0f - macro_anim_t) * (1.0f - macro_anim_t) * (1.0f - macro_anim_t);
+                            float slide_active_x = sub_tab_size.x * macro_anim_dir * (1.0f - mt);
+                            float slide_prev_x = sub_tab_size.x * macro_anim_dir * (-mt);
+
+                            ImVec2 sub_clip_origin = ImGui::GetCursorScreenPos();
+                            ImGui::GetWindowDrawList()->PushClipRect(sub_clip_origin, sub_clip_origin + ImVec2(sub_tab_size.x, sub_tab_size.y), true);
+
+                            if (macro_anim_t < 1.0f) {
+                                ImGui::SetCursorScreenPos(sub_clip_origin + ImVec2(slide_prev_x, 0.0f));
+                                ImGui::BeginDisabled(true);
+                                ImGui::BeginGroup();
+                                render_macro_sub(macro_prev_tab);
+                                ImGui::EndGroup();
+                                ImGui::EndDisabled();
+                            }
+
+                            ImGui::SetCursorScreenPos(sub_clip_origin + ImVec2(slide_active_x, 0.0f));
+                            ImGui::BeginGroup();
+                            render_macro_sub(macro_sub_tab);
+                            ImGui::EndGroup();
+
+                            ImGui::GetWindowDrawList()->PopClipRect();
                         }
                         else if (tab == 1) {
                             ImAdd::BeginChild("Indicators", tab_size);
