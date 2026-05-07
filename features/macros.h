@@ -1,8 +1,12 @@
 #pragma once
 
 namespace macros {
+    // Double click
     void doubleClick();
     void attributeSwap();
-    void panicButtonHandler();
     void spearSwap();
+    // Crystals
+
+    // Misc
+    void panicButtonHandler();
 }
