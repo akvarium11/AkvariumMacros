@@ -48,6 +48,12 @@ namespace globals
         inline bool anchorMacro = false;
         inline keybind anchorMacroKey("anchorMacroKey");
         inline int anchorMacroDelay = 30;
+        // Crystal macro
+        inline bool crystalMacro = false;
+        inline keybind crystalSlot("crystalSlot");
+        inline keybind obsidianSlot("obsidianSlot");
+        inline keybind crystalMacroKey("crystalMacroKey");
+        inline int crystalMacroDelay = 30;
     }
 
     namespace misc {
