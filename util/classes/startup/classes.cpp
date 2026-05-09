@@ -158,10 +158,15 @@ bool engine::startup() {
     spear.detach();
     logger.CustomLog(FOREGROUND_GREEN | FOREGROUND_INTENSITY, "SUCCESS", "Spear swap thread launched");
 
-    logger.CustomLog(FOREGROUND_BLUE | FOREGROUND_GREEN | FOREGROUND_INTENSITY, "MACROS", "Launching Anchor macro thread...");
+    logger.CustomLog(FOREGROUND_BLUE | FOREGROUND_GREEN | FOREGROUND_INTENSITY, "MACROS", "Launching anchor macro thread...");
     std::thread anchor(macros::anchorMacro);
     anchor.detach();
     logger.CustomLog(FOREGROUND_GREEN | FOREGROUND_INTENSITY, "SUCCESS", "Anchor macro thread launched");
+
+    logger.CustomLog(FOREGROUND_BLUE | FOREGROUND_GREEN | FOREGROUND_INTENSITY, "MACROS", "Launching crystal macro thread...");
+    std::thread crystal(macros::crystalMacro);
+    crystal.detach();
+    logger.CustomLog(FOREGROUND_GREEN | FOREGROUND_INTENSITY, "SUCCESS", "Crystal macro thread launched");
 
     logger.CustomLog(FOREGROUND_BLUE | FOREGROUND_GREEN | FOREGROUND_INTENSITY, "MACROS", "Launching panic button thread...");
     std::thread panic(macros::panicButtonHandler);

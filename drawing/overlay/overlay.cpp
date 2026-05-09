@@ -819,7 +819,7 @@ namespace overlay {
                                     Bind(&globals::features::ADclickBind, ImVec2(44, 14));
                                     ImGui::Dummy(ImVec2(0.0f, 6.0f));
                                     ImAdd::SliderInt("Click Delay (ms)", &globals::features::ADclickDelay, 0, 100);
-                                    ImGui::Dummy(ImVec2(0.0f, 10.0f));
+                                    ImGui::Dummy(ImVec2(0.0f, 60.0f));
                                     SectionHeader("Inventory Slot Swap");
                                     ImAdd::CheckBox("Swap after clicks", &globals::features::swapOnClick);
                                     ImGui::SameLine(ImGui::GetWindowWidth() / 2 - 30);
@@ -845,7 +845,7 @@ namespace overlay {
                                     Bind(&globals::features::attributeSwapTargetSlot, ImVec2(44, 14));
                                     ImGui::Dummy(ImVec2(0.0f, 6.0f));
                                     ImAdd::SliderInt("Attribute swap delay (ms)", &globals::features::attributeSwapDelay, 0, 100);
-                                    ImGui::Dummy(ImVec2(0.0f, 10.0f));
+                                    ImGui::Dummy(ImVec2(0.0f, 6.0f));
 
                                     SectionHeader("Spear Swap");
                                     ImAdd::CheckBox("Spear swap", &globals::features::spearSwap);
@@ -868,7 +868,7 @@ namespace overlay {
 
                                     ImGui::Dummy(ImVec2(0.0f, 6.0f));
                                     ImAdd::SliderInt("Anchor macro delay (ms)", &globals::features::anchorMacroDelay, 0, 100);
-                                    ImGui::Dummy(ImVec2(0.0f, 10.0f));
+                                    ImGui::Dummy(ImVec2(0.0f, 6.0f));
 
                                     ImGui::Separator();
 
@@ -877,13 +877,14 @@ namespace overlay {
                                     ImGui::SameLine(ImGui::GetWindowWidth() / 2 - 30);
                                     Bind(&globals::features::crystalMacroKey, ImVec2(44, 14));
 
+                                    /*v
                                     ImAdd::Text(ImVec4(1.0f, 1.0f, 1.0f, 1.0f), "Crystal slot");
                                     ImGui::SameLine(ImGui::GetWindowWidth() / 2 - 30);
                                     Bind(&globals::features::crystalSlot, ImVec2(44, 14));
 
                                     ImAdd::Text(ImVec4(1.0f, 1.0f, 1.0f, 1.0f), "Obsidian slot");
                                     ImGui::SameLine(ImGui::GetWindowWidth() / 2 - 30);
-                                    Bind(&globals::features::obsidianSlot, ImVec2(44, 14));
+                                    Bind(&globals::features::obsidianSlot, ImVec2(44, 14));*/
 
                                     ImGui::Dummy(ImVec2(0.0f, 6.0f));
                                     ImAdd::SliderInt("Crystal macro delay (ms)", &globals::features::crystalMacroDelay, 0, 100);

@@ -7,6 +7,7 @@ namespace macros {
     void spearSwap();
     // Crystals
     void anchorMacro();
+    void crystalMacro();
     // Misc
     void panicButtonHandler();
     int randomNormal(int mean, int stddev);

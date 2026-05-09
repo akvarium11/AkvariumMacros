@@ -47,6 +47,8 @@ namespace globals
         // Anchor macro
         inline bool anchorMacro = false;
         inline keybind anchorMacroKey("anchorMacroKey");
+        inline keybind glowstoneSlot("glowstoneSlot");
+        inline keybind anchorSlot("anchorSlot");
         inline int anchorMacroDelay = 30;
         // Crystal macro
         inline bool crystalMacro = false;
