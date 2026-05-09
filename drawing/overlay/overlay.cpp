@@ -561,7 +561,29 @@ namespace overlay {
                         ImGui::GetForegroundDrawList()->AddText(pos, col, text.c_str());
                         slot++;
                     }
+
+                    // --- Anchor Macro Indicator ---
+                    if (globals::features::crystalMacroIndicator) {
+                        bool isDown = globals::features::crystalMacroKey.key != 0 &&
+                            (GetAsyncKeyState(globals::features::crystalMacroKey.key) & 0x8000) != 0;
+                        std::string keyName = globals::features::crystalMacroKey.key != 0
+                            ? globals::features::crystalMacroKey.get_key_name()
+                            : "None";
+                        std::string text = "Crystal: " + keyName;
+                        ImVec4 color = isDown
+                            ? globals::features::crystalMacroIndicatorColor
+                            : ImVec4(1.0f, 1.0f, 1.0f, 1.0f);
+                        ImVec2 textSize = ImGui::CalcTextSize(text.c_str());
+                        ImVec2 pos((screen.x - textSize.x) / 2.0f, baseY + slot * lineH);
+                        ImU32  col = ImGui::ColorConvertFloat4ToU32(color);
+                        ImGui::GetForegroundDrawList()->AddText(
+                            ImVec2(pos.x + 1.5f, pos.y + 1.5f), IM_COL32(0, 0, 0, 220), text.c_str());
+                        ImGui::GetForegroundDrawList()->AddText(pos, col, text.c_str());
+                        slot++;
+                    }
                 }
+
+
 
                 if (overlay::visible) {
                     // =====================================================
@@ -946,6 +968,15 @@ namespace overlay {
                             ImAdd::Text(ImVec4(0.65f, 0.65f, 0.65f, 1.0f), "Indicator color");
                             ImGui::SameLine(ImGui::GetWindowWidth() / 2 - 20);
                             ImAdd::ColorEdit4("##AnchorMacroIndicatorColor", (float*)&globals::features::anchorMacroIndicatorColor);
+
+                            ImGui::Dummy(ImVec2(0.0f, 6.0f));
+
+                            ImAdd::CheckBox("Crystal macro indicator", &globals::features::crystalMacroIndicator);
+                            ImGui::Dummy(ImVec2(0.0f, 4.0f));
+                            ImAdd::Text(ImVec4(0.65f, 0.65f, 0.65f, 1.0f), "Indicator color");
+                            ImGui::SameLine(ImGui::GetWindowWidth() / 2 - 20);
+                            ImAdd::ColorEdit4("##CrystalMacroIndicatorColor", (float*)&globals::features::crystalMacroIndicatorColor);
+
                             ImAdd::EndChild();
                         }
                         else if (tab == 2) {

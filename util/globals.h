@@ -25,6 +25,9 @@ namespace globals
 
         inline bool anchorMacroIndicator = false;
         inline ImVec4 anchorMacroIndicatorColor = ImVec4(1.0f, 1.0f, 1.0f, 1.0f);
+
+        inline bool crystalMacroIndicator = false;
+        inline ImVec4 crystalMacroIndicatorColor = ImVec4(1.0f, 1.0f, 1.0f, 1.0f);
         // Swap after click
         inline bool swapOnClick = false;
         inline keybind SwapOnTargetSlot("SwapOnTargetSlot");
