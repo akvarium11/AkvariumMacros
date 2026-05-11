@@ -52,7 +52,7 @@ AkvariumMacros has anti pattern detection algorithm which randomizes delay betwe
 
 ## <a id="license"></a> 📄License
 
-The project is distributed under the [MIT license](https://github.com/akvarium11/AkvariumMacros/blob/master/LICENSE.txt).
+The project is distributed under the [MIT license](https://github.com/akvarium11/AkvariumMacros/blob/master/LICENSE).
 
 ---
 
@@ -107,4 +107,4 @@ AkvariumMacros имеет алгоритм избегающий детекта �
 
 ## <a id="license-rus"></a> 📄Лицензия
 
-Проект распространяется под [лицензией MIT](https://github.com/akvarium11/AkvariumMacros/blob/master/LICENSE.txt).
+Проект распространяется под [лицензией MIT](https://github.com/akvarium11/AkvariumMacros/blob/master/LICENSE).
